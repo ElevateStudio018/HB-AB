@@ -114,6 +114,18 @@ VALUES = [
     ("Planering", "Varje uppdrag planeras noggrant innan arbetet påbörjas."),
 ]
 
+# The questions follow the FAQ on haningebyggteam.se; the answers are expanded slightly (see README).
+FAQ = [
+    ("Vilka områden arbetar ni i?", "Vi utför bygg- och renoveringsarbeten i Stockholm och närliggande områden, bland annat Haninge, Tyresö, Huddinge och Nacka."),
+    ("Hur kontaktar jag er?", f'Du når oss på telefon <a href="tel:{TEL}">{PHONE}</a> eller e-post <a href="mailto:{EMAIL}">{EMAIL}</a>. Du kan också skicka en <a href="{{root}}kontakt.html#offert">offertförfrågan</a>.'),
+    ("Erbjuder ni kostnadsfri offert?", "Ja. Kontakta oss så bokar vi ett kostnadsfritt möte och går igenom ditt projekt. Därefter får du en tydlig offert med omfattning och pris."),
+    ("Vilka tjänster erbjuder ni?", "Vi erbjuder bland annat totalrenoveringar, köksrenoveringar, badrumsrenoveringar, tillbyggnader och altanbyggen, samt målning, golv, kakel och klinker, snickeri, dörrar och fönster, VVS och betongarbeten."),
+    ("Hur lång tid tar ett byggprojekt?", "Tidsplanen varierar beroende på projektets omfattning. En tydlig tidsplan presenteras alltid innan arbetet påbörjas."),
+    ("Arbetar ni även åt företag och bostadsrättsföreningar?", 'Ja. Vi utför uppdrag för privatpersoner, företag, fastighetsägare och bostadsrättsföreningar. Läs mer under <a href="{root}kunder.html">Kunder</a>.'),
+]
+START_OPTIONS = ["Så snart som möjligt", "Inom 1–3 månader", "Inom 3–6 månader", "Senare / vet inte"]
+CUSTOMER_TYPES = ["Privatperson", "Företag", "Bostadsrättsförening"]
+
 E = html.escape
 ARROW = '<svg class="ar" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>'
 
@@ -158,13 +170,15 @@ def header(root, active):
             items.append(f'<li><a href="{root}{href}"{cur}>{label}</a></li>')
     menu = "".join(f'<li><a href="{root}{h}">{l}</a></li>' for _, l, h in NAV)
     return f'''<a class="skip" href="#main">Till innehållet</a>
-<header class="head">
+<header class="head{" head-over" if active == "start" else ""}" id="head">
   <div class="wrap bar">
     <a class="logo" href="{root}index.html" aria-label="{NAME}, startsidan">{logo()}</a>
     <nav aria-label="Huvudmeny"><ul class="nav">{"".join(items)}</ul></nav>
+    <a class="btn btn-head" href="{root}kontakt.html#offert">Begär offert</a>
     <button class="burger" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu">Meny</button>
   </div>
   <nav class="menu" id="menu" aria-label="Meny" hidden><div class="wrap"><ul>{menu}</ul>
+    <a class="btn menu-btn" href="{root}kontakt.html#offert">Begär offert</a>
     <p class="menu-c"><a href="tel:{TEL}">{PHONE}</a><br><a href="mailto:{EMAIL}">{EMAIL}</a></p></div></nav>
 </header>'''
 
@@ -236,11 +250,11 @@ def page(name, title, desc, main, active="", image="hero-villa"):
 <link rel="apple-touch-icon" href="{root}img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap">
 <link rel="stylesheet" href="{root}assets/site.css">
 {jsonld() if name == "index.html" else ""}
 </head>
-<body>
+<body{' class="home"' if active == "start" else ""}>
 {header(root, active)}
 <main id="main">
 {main.replace("{root}", root)}
@@ -301,31 +315,66 @@ def contact_block(title="Kontakta oss"):
 </section>'''
 
 
-def form():
-    opts = "".join(f"<option>{E(t)}</option>" for t in WORK_TYPES)
+def quote_form():
+    types = "".join(f"<option>{E(t)}</option>" for t in WORK_TYPES)
+    start = "".join(f"<option>{E(t)}</option>" for t in START_OPTIONS)
+    kund = "".join(f'<label class="radio"><input type="radio" name="kund" value="{t}"{" checked" if i == 0 else ""}><span>{t}</span></label>'
+                   for i, t in enumerate(CUSTOMER_TYPES))
     return f'''<form id="qform" class="form" novalidate data-endpoint="https://formsubmit.co/ajax/{FORM_EMAIL}">
+  <fieldset class="field"><legend>Jag är</legend><div class="radios">{kund}</div></fieldset>
   <div class="row2">
-    <div class="field"><label for="f-namn">Namn</label><input id="f-namn" name="namn" autocomplete="name" required>
+    <div class="field"><label for="f-typ">Typ av uppdrag</label><select id="f-typ" name="typ"><option value="">Välj</option>{types}</select></div>
+    <div class="field"><label for="f-start">Önskad start</label><select id="f-start" name="start"><option value="">Välj</option>{start}</select></div>
+  </div>
+  <div class="field"><label for="f-besk">Beskriv projektet</label><textarea id="f-besk" name="besk" rows="5" placeholder="Vad ska göras, ungefärlig storlek och övriga önskemål"></textarea></div>
+  <div class="row2">
+    <div class="field"><label for="f-namn">Namn *</label><input id="f-namn" name="namn" autocomplete="name" required>
       <p class="err" id="e-namn" hidden>Ange ditt namn.</p></div>
-    <div class="field"><label for="f-tel">Telefon</label><input id="f-tel" name="tel" type="tel" autocomplete="tel">
+    <div class="field"><label for="f-tel">Telefon *</label><input id="f-tel" name="tel" type="tel" autocomplete="tel">
       <p class="err" id="e-tel" hidden>Ange telefon eller e-post.</p></div>
   </div>
   <div class="row2">
     <div class="field"><label for="f-epost">E-post</label><input id="f-epost" name="epost" type="email" autocomplete="email">
       <p class="err" id="e-epost" hidden>Kontrollera e-postadressen.</p></div>
-    <div class="field"><label for="f-typ">Ärende</label><select id="f-typ" name="typ"><option value="">Välj</option>{opts}</select></div>
+    <div class="field"><label for="f-adress">Adress eller ort för uppdraget</label><input id="f-adress" name="adress" autocomplete="street-address"></div>
   </div>
-  <div class="field"><label for="f-ort">Ort</label><input id="f-ort" name="ort" autocomplete="address-level2"></div>
-  <div class="field"><label for="f-besk">Meddelande</label><textarea id="f-besk" name="besk" rows="5"></textarea></div>
   <div class="hp" aria-hidden="true"><label for="f-web">Lämna tomt</label><input id="f-web" name="web" tabindex="-1" autocomplete="off"></div>
-  <button class="btn" type="submit">Skicka</button>
-  <p class="err" id="send-err" role="alert" hidden>Meddelandet kunde inte skickas. Försök igen eller ring {PHONE}.</p>
+  <div class="form-end">
+    <button class="btn" type="submit">Skicka offertförfrågan</button>
+    <p class="fine">Hembesök och offert är kostnadsfria. Uppgifterna används endast för att besvara din förfrågan.</p>
+  </div>
+  <p class="err" id="send-err" role="alert" hidden>Förfrågan kunde inte skickas. Försök igen eller ring {PHONE}.</p>
 </form>
 <div class="done" id="qdone" tabindex="-1" hidden>
-  <h3>Tack för ditt meddelande</h3>
-  <p>Vi återkommer så snart vi kan.</p>
-  <button class="btn btn-line" type="button" id="qagain">Skicka ett nytt meddelande</button>
+  <h3>Tack för din förfrågan</h3>
+  <p>Vi kontaktar dig för att boka ett hembesök.</p>
+  <button class="btn btn-line" type="button" id="qagain">Skicka en ny förfrågan</button>
 </div>'''
+
+
+def offer_section(title="Begär offert"):
+    return f'''<section class="sec" id="offert">
+  <div class="wrap split">
+    <div class="offer-intro">
+      <h2>{title}</h2>
+      <p>Beskriv ditt projekt så kontaktar vi dig och bokar ett kostnadsfritt hembesök. Du får en tydlig offert med omfattning och pris innan arbetet påbörjas.</p>
+      <p class="k">Telefon</p><p><a href="tel:{TEL}">{PHONE}</a></p>
+      <p class="k">E-post</p><p><a href="mailto:{EMAIL}">{EMAIL}</a></p>
+      <p class="k">Öppettider</p><p>{HOURS}</p>
+    </div>
+    <div>{quote_form()}</div>
+  </div>
+</section>'''
+
+
+def faq_section(grey=True):
+    items = "".join(f'<details><summary>{q}</summary><div><p>{a}</p></div></details>' for q, a in FAQ)
+    return f'''<section class="sec{" sec-grey" if grey else ""}" id="fragor">
+  <div class="wrap split">
+    <div><h2>Vanliga frågor</h2><p class="muted">Hittar du inte svaret? Ring <a href="tel:{TEL}">{PHONE}</a>.</p></div>
+    <div class="faq">{items}</div>
+  </div>
+</section>'''
 
 
 # --- Pages -------------------------------------------------------------------------------------------------------------
@@ -337,7 +386,7 @@ def build_index():
   <div class="wrap hero-in">
     <h1>Kvalitet som håller</h1>
     <p>Bygg och renovering för hem, fastigheter och företag i Stockholm.</p>
-    {link("{root}tjanster/index.html", "Vår verksamhet", "lnk lnk-light")}
+    <div class="hero-act">{button("{root}kontakt.html#offert", "Begär offert", "btn btn-white")}{link("{root}tjanster/index.html", "Vår verksamhet", "lnk lnk-light")}</div>
   </div>
 </section>
 
@@ -389,10 +438,11 @@ def build_index():
     <span class="duo-txt"><span class="k">Karriär</span><span class="duo-t">Bygg din framtid hos Haninge Byggteam</span><span class="tile-l">Läs mer{ARROW}</span></span></a>
 </section>
 
-{contact_block()}'''
+{faq_section()}
+{offer_section()}'''
     page("index.html", f"{NAME} – bygg och renovering i Stockholm",
          f"{NAME} är ett byggföretag med verksamhet i Stockholm. Totalrenovering, kök, badrum, målning, golv, snickeri, tillbyggnad, betong och VVS för privatpersoner, företag och bostadsrättsföreningar.",
-         main, "")
+         main, "start")
 
 
 def build_services_index():
@@ -432,7 +482,7 @@ def build_service(s):
       <div class="contact-card">
         <p class="k">Kontakt</p>
         <p>Vill du veta mer eller boka ett hembesök? Kontakta oss på <a href="tel:{TEL}">{PHONE}</a> eller <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
-        {button("{root}kontakt.html?typ=" + typ + "#formular", "Kontakta oss")}
+        {button("{root}kontakt.html?typ=" + typ + "#offert", "Begär offert")}
       </div>
     </div>
   </div>
@@ -508,7 +558,7 @@ def build_customers():
     blocks = "".join(f'''<section class="sec{" sec-grey" if i % 2 else ""}" id="{k}">
   <div class="wrap media{" media-rev" if i % 2 else ""}">
     <div class="media-img">{img("{root}", ph, "", "(min-width: 960px) 50vw, 100vw")}</div>
-    <div class="media-txt"><h2>{t}</h2><p>{d}</p>{link("{root}kontakt.html#formular", "Kontakta oss")}</div>
+    <div class="media-txt"><h2>{t}</h2><p>{d}</p>{link("{root}kontakt.html#offert", "Begär offert")}</div>
   </div>
 </section>''' for i, (k, t, d, ph) in enumerate(segs))
     main = f'''{page_head([("Kunder", "kunder.html")], "Kunder", "Vi arbetar för privatpersoner, företag, fastighetsägare och bostadsrättsföreningar i Stockholm och på Södertörn.")}
@@ -541,21 +591,12 @@ def build_career():
 
 
 def build_contact():
-    main = f'''{page_head([("Kontakt", "kontakt.html")], "Kontakt", "Kontakta oss för frågor, offert eller ett hembesök.")}
-<section class="sec sec-top0">
-  <div class="wrap split">
-    <div class="side">
-      <p class="k">Telefon</p><p><a href="tel:{TEL}">{PHONE}</a></p>
-      <p class="k">E-post</p><p><a href="mailto:{EMAIL}">{EMAIL}</a></p>
-      <p class="k">Besöksadress</p><p>{NAME}<br>{STREET}<br>{POSTAL} {CITY}</p>
-      <p class="k">Öppettider</p><p>{HOURS}</p>
-      <p class="k">Organisationsnummer</p><p>{ORG_NR}</p>
-    </div>
-    <div id="formular"><h2>Skicka ett meddelande</h2>{form()}</div>
-  </div>
-</section>
+    main = f'''{page_head([("Kontakt", "kontakt.html")], "Kontakt", "Begär en kostnadsfri offert eller kontakta oss med frågor.")}
+{offer_section()}
+{faq_section()}
+{contact_block("Kontaktuppgifter")}
 <div class="map"><iframe title="Karta: {E(ADDR)}" src="{MAP_EMBED}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>'''
-    page("kontakt.html", f"Kontakt | {NAME}", f"Kontakta {NAME}: {PHONE}, {EMAIL}, {ADDR}.", main, "kontakt")
+    page("kontakt.html", f"Kontakt och offert | {NAME}", f"Begär kostnadsfri offert från {NAME}. {PHONE}, {EMAIL}, {ADDR}.", main, "kontakt")
 
 
 def build_404():

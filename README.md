@@ -1,20 +1,20 @@
 # Haninge Byggteam AB – webbplats
 
 Ny webbplats för Haninge Byggteam AB (bygg och renovering i Stockholm och på Södertörn) i stram koncernstil, i samma
-anda som de stora byggbolagens sajter: ett typsnitt (IBM Plex Sans), raka hörn, tunna linjer, stora bilder, mycket luft
-och marinblått som enda färg. Inga betyg, stjärnor, ikoner, bockar, säljlöften eller FAQ – bara verksamhet, projekt,
-företagsfakta och kontakt.
+anda som de stora byggbolagens sajter: ett typsnitt (Poppins, samma som gamla sajten), raka hörn, tunna linjer, stora bilder, mycket luft
+och marinblått som enda färg. Startsidan öppnar med en helskärmsbild under ett genomskinligt sidhuvud. Inga betyg,
+stjärnor, ikoner, bockar eller säljlöften – bara verksamhet, projekt, företagsfakta, vanliga frågor och offertformulär.
 
 ## Sidor
 
 Allt ligger i [`docs/`](docs/) och kräver inga verktyg – öppna `docs/index.html` i en webbläsare.
 
 - `index.html` – start: helskärmsbild, företagspresentation, verksamhet (tre områden), utvalt projekt, projekt,
-  arbetssätt, kunder/karriär och kontakt
+  arbetssätt, kunder/karriär, vanliga frågor och offertformulär
 - `tjanster/index.html` (Verksamhet) + tio tjänstesidor i `tjanster/` – **samma adresser som gamla sajten**
   (`/tjanster/badrumsrenovering` osv.), så befintliga länkar och Google-träffar fortsätter fungera
 - `projekt.html` (filtrerbart), `kunder.html`, `om-oss.html` (värderingar, arbetssätt, företagsfakta), `karriar.html`,
-  `kontakt.html` (kontaktuppgifter, formulär och karta)
+  `kontakt.html` (offertformulär, vanliga frågor, kontaktuppgifter och karta)
 - `404.html`, `sitemap.xml`, `robots.txt`
 
 ## Ändra text
@@ -43,13 +43,15 @@ sajten använder info@-adressen.
 - Indelningen i tre affärsområden (Renovering & ytskikt, Bygg & snickeri, Grund & installation) och deras ingresser.
 - Listorna ”Omfattning” på tjänstesidorna, värderingarna och texterna på sidan Kunder.
 - Sidan **Karriär** – ta bort om de inte tar emot ansökningar.
-- Projektnamnen ”Fasad” och ”Hall och trappa”.
+- Projektnamnen ”Fasad” och ”Hall och trappa”, samt den sjätte frågan i FAQ (företag och BRF) – de fem första
+  frågorna kommer från gamla sajten.
 
 Inga certifieringar, garantier, priser, årtal eller antal anställda anges.
 
 ## Offertformuläret
 
-Formuläret på Kontakt skickar e-post via [FormSubmit](https://formsubmit.co) och visar
+Offertformuläret (startsidan och Kontakt) frågar efter kundtyp, typ av uppdrag, önskad start, beskrivning,
+kontaktuppgifter och adress. Det skickar e-post via [FormSubmit](https://formsubmit.co) och visar
 ett tackmeddelande. Under förhandsvisningen går förfrågningarna till Elevate Studio; byt `FORM_EMAIL` i
 `scripts/build.py` till info@haningebyggteam.se vid lansering. Första förfrågan till en ny adress skickar bara ett
 aktiveringsmejl. ”Kontakta oss” på en tjänstesida fyller i ärendet automatiskt (`kontakt.html?typ=…#formular`).

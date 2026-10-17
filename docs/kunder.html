@@ -20,19 +20,21 @@
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap">
 <link rel="stylesheet" href="assets/site.css">
 
 </head>
 <body>
 <a class="skip" href="#main">Till innehållet</a>
-<header class="head">
+<header class="head" id="head">
   <div class="wrap bar">
     <a class="logo" href="index.html" aria-label="Haninge Byggteam AB, startsidan"><span class="logo-a">HANINGE</span><span class="logo-b">BYGGTEAM</span></a>
     <nav aria-label="Huvudmeny"><ul class="nav"><li class="has-mega"><a href="tjanster/index.html">Verksamhet</a><div class="mega"><div class="wrap mega-in"><div class="mega-intro"><p class="mega-t">Verksamhet</p><p>Bygg- och renoveringstjänster för privatpersoner, företag och bostadsrättsföreningar i Stockholm.</p><a class="lnk" href="tjanster/index.html"><span>Alla tjänster</span><svg class="ar" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></div><div><a class="mega-h" href="tjanster/index.html#renovering">Renovering och ytskikt</a><ul><li><a href="tjanster/totalrenovering.html">Totalrenovering</a></li><li><a href="tjanster/koksrenovering.html">Köksrenovering</a></li><li><a href="tjanster/badrumsrenovering.html">Badrumsrenovering</a></li><li><a href="tjanster/malning-och-ytskikt.html">Målning och ytskikt</a></li><li><a href="tjanster/golv-kakel-klinker.html">Golv, kakel och klinker</a></li></ul></div><div><a class="mega-h" href="tjanster/index.html#bygg">Bygg och snickeri</a><ul><li><a href="tjanster/snickeri-och-inredning.html">Snickeri och inredning</a></li><li><a href="tjanster/dorrar-fonster-tak.html">Dörrar, fönster och tak</a></li><li><a href="tjanster/om-tillbyggnad-utomhus.html">Om- och tillbyggnad, utomhus</a></li></ul></div><div><a class="mega-h" href="tjanster/index.html#teknik">Grund och installation</a><ul><li><a href="tjanster/betong-rivning-haltagning.html">Betong, rivning och håltagning</a></li><li><a href="tjanster/vvs-och-ledningsarbeten.html">VVS och ledningsarbeten</a></li></ul></div></div></div></li><li><a href="projekt.html">Projekt</a></li><li><a href="kunder.html" aria-current="page">Kunder</a></li><li><a href="om-oss.html">Om oss</a></li><li><a href="karriar.html">Karriär</a></li><li><a href="kontakt.html">Kontakt</a></li></ul></nav>
+    <a class="btn btn-head" href="kontakt.html#offert">Begär offert</a>
     <button class="burger" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu">Meny</button>
   </div>
   <nav class="menu" id="menu" aria-label="Meny" hidden><div class="wrap"><ul><li><a href="tjanster/index.html">Verksamhet</a></li><li><a href="projekt.html">Projekt</a></li><li><a href="kunder.html">Kunder</a></li><li><a href="om-oss.html">Om oss</a></li><li><a href="karriar.html">Karriär</a></li><li><a href="kontakt.html">Kontakt</a></li></ul>
+    <a class="btn menu-btn" href="kontakt.html#offert">Begär offert</a>
     <p class="menu-c"><a href="tel:+46720022200">072-002 22 00</a><br><a href="mailto:info@haningebyggteam.se">info@haningebyggteam.se</a></p></div></nav>
 </header>
 <main id="main">
@@ -47,17 +49,17 @@
 <section class="sec" id="privat">
   <div class="wrap media">
     <div class="media-img"><img src="img/badrum-modern.jpg" srcset="img/badrum-modern-s.jpg 800w, img/badrum-modern.jpg 1800w" sizes="(min-width: 960px) 50vw, 100vw" alt="" loading="lazy" decoding="async" style="object-position:50% 50%"></div>
-    <div class="media-txt"><h2>Privatpersoner</h2><p>Villa, radhus och bostadsrätt. Vi utför allt från enskilda badrum och kök till totalrenoveringar, tillbyggnader och altaner.</p><a class="lnk" href="kontakt.html#formular"><span>Kontakta oss</span><svg class="ar" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></div>
+    <div class="media-txt"><h2>Privatpersoner</h2><p>Villa, radhus och bostadsrätt. Vi utför allt från enskilda badrum och kök till totalrenoveringar, tillbyggnader och altaner.</p><a class="lnk" href="kontakt.html#offert"><span>Begär offert</span><svg class="ar" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></div>
   </div>
 </section><section class="sec sec-grey" id="foretag">
   <div class="wrap media media-rev">
     <div class="media-img"><img src="img/projektledning.jpg" srcset="img/projektledning-s.jpg 800w, img/projektledning.jpg 1800w" sizes="(min-width: 960px) 50vw, 100vw" alt="" loading="lazy" decoding="async" style="object-position:50% 50%"></div>
-    <div class="media-txt"><h2>Företag och fastighetsägare</h2><p>Renovering av lokaler och lägenheter, ytskikt, håltagning och VVS. En kontaktperson och en tydlig offert med omfattning och pris.</p><a class="lnk" href="kontakt.html#formular"><span>Kontakta oss</span><svg class="ar" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></div>
+    <div class="media-txt"><h2>Företag och fastighetsägare</h2><p>Renovering av lokaler och lägenheter, ytskikt, håltagning och VVS. En kontaktperson och en tydlig offert med omfattning och pris.</p><a class="lnk" href="kontakt.html#offert"><span>Begär offert</span><svg class="ar" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></div>
   </div>
 </section><section class="sec" id="brf">
   <div class="wrap media">
     <div class="media-img"><img src="img/malning-pagar.jpg" srcset="img/malning-pagar-s.jpg 800w, img/malning-pagar.jpg 1800w" sizes="(min-width: 960px) 50vw, 100vw" alt="" loading="lazy" decoding="async" style="object-position:50% 50%"></div>
-    <div class="media-txt"><h2>Bostadsrättsföreningar</h2><p>Badrum, målning, golv och åtgärder i gemensamma utrymmen, planerat i dialog med styrelsen och med hänsyn till de boende.</p><a class="lnk" href="kontakt.html#formular"><span>Kontakta oss</span><svg class="ar" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></div>
+    <div class="media-txt"><h2>Bostadsrättsföreningar</h2><p>Badrum, målning, golv och åtgärder i gemensamma utrymmen, planerat i dialog med styrelsen och med hänsyn till de boende.</p><a class="lnk" href="kontakt.html#offert"><span>Begär offert</span><svg class="ar" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></div>
   </div>
 </section>
 <section class="sec sec-grey">

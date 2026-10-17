@@ -17,6 +17,15 @@
     });
   }
 
+  // Home page: the header is transparent over the full-screen hero and turns white once the page scrolls.
+  var head = document.getElementById("head");
+  if (head && head.classList.contains("head-over")) {
+    var onScroll = function () { head.classList.toggle("solid", window.scrollY > 40 || (menu && !menu.hidden)); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    if (btn) btn.addEventListener("click", onScroll);
+    onScroll();
+  }
+
   document.querySelectorAll("[data-year]").forEach(function (y) { y.textContent = new Date().getFullYear(); });
 
   // Project filter.
@@ -41,7 +50,8 @@
     tel: document.getElementById("f-tel"),
     epost: document.getElementById("f-epost"),
     typ: document.getElementById("f-typ"),
-    ort: document.getElementById("f-ort"),
+    start: document.getElementById("f-start"),
+    adress: document.getElementById("f-adress"),
     besk: document.getElementById("f-besk"),
     web: document.getElementById("f-web")
   };
@@ -81,15 +91,17 @@
     submit.textContent = "Skickar …";
     sendErr.hidden = true;
     var payload = {
-      _subject: "Meddelande från hemsidan – " + f.namn.value.trim(),
+      _subject: "Offertförfrågan från hemsidan – " + f.namn.value.trim(),
       _template: "table",
       _captcha: "false",
       _honey: f.web.value,
       Namn: f.namn.value.trim(),
       Telefon: f.tel.value.trim() || "–",
       "E-post": f.epost.value.trim() || "–",
-      "Ärende": f.typ.value || "–",
-      Ort: f.ort.value.trim() || "–",
+      Kundtyp: (form.querySelector("input[name=kund]:checked") || {}).value || "–",
+      "Typ av uppdrag": f.typ.value || "–",
+      "Önskad start": f.start.value || "–",
+      "Adress/ort": f.adress.value.trim() || "–",
       Beskrivning: f.besk.value.trim() || "–",
       Sida: location.pathname
     };
@@ -112,7 +124,7 @@
       sendErr.hidden = false;
     }).then(function () {
       submit.disabled = false;
-      submit.textContent = "Skicka";
+      submit.textContent = "Skicka offertförfrågan";
     });
   });
 
