@@ -1,7 +1,7 @@
 # Haninge Byggteam AB – webbplats
 
 Ny webbplats för Haninge Byggteam AB (bygg och renovering i Stockholm och på Södertörn) i stram koncernstil, i samma
-anda som de stora byggbolagens sajter: ett typsnitt (Poppins, samma som gamla sajten), raka hörn, tunna linjer, stora bilder, mycket luft
+anda som de stora byggbolagens sajter: ett typsnitt (Poppins i fet vikt för rubriker, samma typsnitt som gamla sajten), raka hörn, tunna linjer, stora bilder, mycket luft
 och marinblått som enda färg. Startsidan öppnar med en helskärmsbild under ett genomskinligt sidhuvud. Inga betyg,
 stjärnor, ikoner, bockar eller säljlöften – bara verksamhet, projekt, företagsfakta, vanliga frågor och offertformulär.
 

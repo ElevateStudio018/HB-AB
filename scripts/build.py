@@ -250,7 +250,7 @@ def page(name, title, desc, main, active="", image="hero-villa"):
 <link rel="apple-touch-icon" href="{root}img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap">
 <link rel="stylesheet" href="{root}assets/site.css">
 {jsonld() if name == "index.html" else ""}
 </head>
