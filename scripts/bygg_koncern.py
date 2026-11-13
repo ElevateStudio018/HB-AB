@@ -79,37 +79,7 @@ def load_generator():
         self.reserv = ["hb-kok", "hb-badrum", "hb-hus", "hb-altan", "hb-fasad", "hb-malning", "hb-hall", "hb-stomme", "hb-bil"]
 
     generera.Bilder.__init__ = init
-    generera.Sajt.sida_verksamhet = sida_tjanster
     return generera
-
-
-# Tjänstesidans formulärval per tjänst (titlarna på sajten använder "&", formuläret "och").
-TJANST_TYP = {"Målning & ytskikt": "Målning och ytskikt", "Golv, kakel & klinker": "Golv, kakel och klinker",
-              "Snickeri & inredning": "Snickeri och inredning", "Dörrar, fönster & tak": "Dörrar, fönster och tak",
-              "Om- & tillbyggnad": "Om- och tillbyggnad, utomhus", "Betong & håltagning": "Betong, rivning och håltagning",
-              "VVS & ledningar": "VVS och ledningsarbeten"}
-
-
-def sida_tjanster(self, slug, namn):
-    """Tjänstesidan som rena kort per affärsområde (i stället för generatorns bildcollage)."""
-    from generera import ikon, PIL
-    from urllib.parse import quote
-    b = self.b
-    block = ""
-    for i, a in enumerate(b["affarsomraden"]):
-        kort = ""
-        for t in b["tjanster"]:
-            if t["href"].endswith(f"#omr-{i}"):
-                typ = quote(TJANST_TYP.get(t["titel"], t["titel"]))
-                kort += (f'<a class="tj-kort" href="om-oss.html?typ={typ}#kontakt">{ikon(t["ikon"])}<b>{E(t["titel"])}</b>'
-                         f'<span>{E(t.get("text", ""))}</span><i>Begär offert {PIL}</i></a>')
-        bg = " pa-yta" if i % 2 else ""
-        block += (f'<section class="sek{bg}" id="omr-{i}"><div class="wrap tj-omr"><div class="tj-intro"><span class="etikett">Område {i + 1:02d}</span>'
-                  f'<h2>{E(a["titel"])}</h2><p>{E(a["text"])}</p><p class="mut">{E(a.get("text2", ""))}</p></div>'
-                  f'<div class="tj-grid">{kort}</div></div></section>')
-    extra = self.s_process() if b.get("process") else ""
-    self.undersida(slug, namn, b.get("sida_verksamhet_titel", namn), b["om"][1], b["affarsomraden"][0]["tagg"],
-                   block + extra, f'{namn} – {b["namn"]}.')
 
 
 def quote_form():
@@ -140,20 +110,9 @@ EXTRA_CSS = """
 /* Bilderna visas direkt: ingen inflyttnings-animation (den gjorde att bilder och sektioner kom sent) */
 .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
 
-/* Tjänstesidan: kort per affärsområde */
-.tj-omr { display: grid; gap: 32px; }
-@media (min-width: 960px) { .tj-omr { grid-template-columns: 1fr 2fr; gap: 64px; align-items: start; } }
-.tj-intro h2 { margin: 10px 0 16px; }
-.tj-intro p { margin: 0 0 12px; }
-.tj-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
-.tj-kort { display: flex; flex-direction: column; gap: 10px; padding: 26px; background: var(--c-bg); border: 1px solid var(--c-line); border-radius: var(--r-card); color: inherit; text-decoration: none; transition: border-color .2s, box-shadow .2s, transform .2s; }
-.pa-yta .tj-kort { background: #fff; }
-.tj-kort:hover { border-color: var(--c-p); box-shadow: 0 14px 34px rgba(14,42,71,.12); transform: translateY(-2px); }
-.tj-kort svg:first-child { width: 34px; height: 34px; color: var(--c-p); }
-.tj-kort b { font-size: 19px; }
-.tj-kort span { color: var(--c-mut); font-size: 15px; flex: 1; }
-.tj-kort i { font-style: normal; font-weight: 600; font-size: 14px; color: var(--c-p); display: inline-flex; align-items: center; gap: 6px; }
-.tj-kort i svg { width: 16px; height: 16px; }
+/* Tjänstesidan: rundade bildpaneler */
+.panel { border-radius: var(--r-card); overflow: hidden; }
+.panel-bild .bild-fyll, .panel-bild img { border-radius: 0; }
 
 /* Haninge Byggteam: offertformulär */
 .boka-form select { width: 100%; font: inherit; font-weight: 400; font-size: 16px; padding: 13px 14px; border: 1px solid var(--c-line); border-radius: min(var(--r-card), 8px); background: var(--c-yta); color: inherit; }
