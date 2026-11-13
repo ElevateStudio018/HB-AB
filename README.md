@@ -34,6 +34,10 @@ python3 scripts/bygg_koncern.py            # eller: python3 scripts/bygg_koncern
 om-texten, de tio tjänsterna och deras texter, arbetsgången, fem av sex vanliga frågor, Google-betyget 5,0 och omdömet från
 Ihtik AlimJanov, samt projekten i Haninge, Stockholm och Tyresö.
 
+**Från haningeriv.se:** systerbolaget Haninge Riv & Sanering (HRS AB) – samma telefon och Albybergsringen, tjänsterna
+rivning, sanering, betonghåltagning, friläggning av rör, byggkonsult och bemanning – och saneringsbilden på sidan Våra bolag.
+Bekräfta att bolagen ska presenteras som en koncern.
+
 **Förslag som kunden bör bekräfta:** indelningen i fyra affärsområden, kundgrupperna (privat, företag, BRF), nyckeltalen
 ”4 affärsområden” och ”10 tjänsteområden”, kvalitetsrutorna, karriärtexten, den sjätte frågan i FAQ och orten
 ”Stockholm” på projekten utan känd ort. Inga årtal, priser, certifieringar eller antal anställda anges.

@@ -23,6 +23,7 @@ SITE_URL = "https://elevatestudio018.github.io/HB-AB/"
 # Offertförfrågningarna mejlas via FormSubmit. Under förhandsvisningen går de till Elevate Studio; byt till
 # info@haningebyggteam.se vid lansering. Första förfrågan till en ny adress skickar bara ett aktiveringsmejl.
 FORM_EMAIL = "elevate.studio018@gmail.com"
+RIV_URL = "https://www.haningeriv.se/"
 
 WORK_TYPES = ["Totalrenovering", "Köksrenovering", "Badrumsrenovering", "Målning och ytskikt", "Golv, kakel och klinker",
               "Snickeri och inredning", "Dörrar, fönster och tak", "Om- och tillbyggnad, utomhus",
@@ -72,7 +73,7 @@ def load_generator():
     def init(self, *a, **k):
         # Bara sajtens egna bilder (hb-*/px-*): inga generella stockbilder ur bildbanken.
         orig_init(self, *a, **k)
-        self.bank = [x for x in self.bank if x["id"].startswith(("hb-", "px-"))]
+        self.bank = [x for x in self.bank if x["id"].startswith(("hb-", "px-", "hrs-"))]
         for x in self.bank:
             if not x["tagg"].startswith("hb-"):
                 x["tagg"] = "hb-ovrig"
@@ -145,6 +146,10 @@ def postprocess(out):
         doc = re.sub(r'<form class="boka-form".*?</form>', lambda m: quote_form(), doc, flags=re.S)
         doc = re.sub(r'<nav aria-label="Juridiskt">.*?</nav>', "", doc, flags=re.S)
         doc = defer_slides(doc)
+        # Systerbolaget Haninge Riv & Sanering har en egen webbplats: dess bolagslänkar går dit.
+        doc = doc.replace('href="bolag.html#bolag-1"', f'href="{RIV_URL}" target="_blank" rel="noopener"')
+        doc = re.sub(r'(<section class="sek-tat" id="bolag-1">.*?<div class="knappar">)<a class="textlank" href="[^"]*"><span>[^<]*</span>',
+                     lambda m: m.group(1) + f'<a class="textlank" href="{RIV_URL}" target="_blank" rel="noopener"><span>Till haningeriv.se</span>', doc, flags=re.S)
         # Företagets logga (logo/haninge-byggteam-logo-webb.svg, i sajtens färger) i sidhuvud och sidfot
         doc = re.sub(r'<span class="ord">Haninge Byggteam</span>(<span class="tag">[^<]*</span>)?',
                      '<img class="logga-bild" src="assets/logo.svg" alt="" width="69" height="60">', doc)

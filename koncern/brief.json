@@ -116,25 +116,18 @@
  ],
  "bolag": [
   {
-   "namn": "Privatpersoner",
-   "segment": "Villa, radhus och bostadsrätt",
-   "rubrik": "Från ett badrum till hela huset",
-   "text": "Kök, badrum, totalrenoveringar, tillbyggnader och altaner – med en tydlig offert innan arbetet påbörjas.",
-   "tagg": "hb-badrum"
+   "namn": "Haninge Byggteam AB",
+   "segment": "Bygg och renovering",
+   "rubrik": "Kompletta bygg- och renoveringslösningar",
+   "text": "Totalrenoveringar, kök och badrum, målning, golv och plattsättning, snickeri, tillbyggnader, betong och VVS – för privatpersoner, företag och bostadsrättsföreningar i Stockholm och på Södertörn.",
+   "tagg": "hb-hus"
   },
   {
-   "namn": "Företag och fastighetsägare",
-   "segment": "Lokaler och lägenheter",
-   "rubrik": "Renovering av lokaler och lägenheter",
-   "text": "Ytskikt, badrum, håltagning och VVS – planerat med hänsyn till hyresgäster och verksamhet.",
-   "tagg": "hb-hall"
-  },
-  {
-   "namn": "Bostadsrättsföreningar",
-   "segment": "Gemensamma utrymmen",
-   "rubrik": "I dialog med styrelsen",
-   "text": "Badrum, målning, golv och åtgärder i gemensamma utrymmen, med hänsyn till de boende.",
-   "tagg": "hb-malning"
+   "namn": "Haninge Riv & Sanering AB",
+   "segment": "Rivning, sanering och håltagning",
+   "rubrik": "Framåtsträvande inom rivning och sanering",
+   "text": "Rivning, sanering, betonghåltagning och friläggning av rör vid fuktskador – samt konsulter inom byggbranschen och bemanning av byggpersonal.",
+   "tagg": "hb-riv"
   }
  ],
  "berattelser": [
@@ -340,16 +333,16 @@
   "citat": "hb-fasad"
  },
  "text": {
-  "bolag_etikett": "Kunder",
-  "bolag_rubrik": "Vi bygger för",
-  "meny_bolag": "Kunder",
+  "bolag_etikett": "Koncernen",
+  "bolag_rubrik": "Våra bolag",
+  "meny_bolag": "Våra bolag",
   "bolag_kol": [
-   "Kund",
+   "Bolag",
    "Inriktning",
-   "Det här gör vi"
+   "Verksamhet"
   ],
-  "bolag_till": "Läs mer",
-  "sida_bolag_ingress": "Vi arbetar för privatpersoner, företag, fastighetsägare och bostadsrättsföreningar.",
+  "bolag_till": "Till {namn}",
+  "sida_bolag_ingress": "Haninge Byggteam och Haninge Riv & Sanering arbetar sida vid sida från Albybergsringen i Österhaninge – bygg och renovering i det ena bolaget, rivning, sanering och håltagning i det andra.",
   "sida_bolag_lank": "Kontakta oss",
   "omdomen_rubrik": "Vad kunderna säger",
   "hb_etikett": "Kvalitet",
@@ -361,7 +354,8 @@
   "ber_etikett": "Projekt",
   "ber_rubrik": "Utvalda uppdrag",
   "boka_rubrik": "Begär offert",
-  "boka_text": "Beskriv ditt projekt så kontaktar vi dig och bokar ett kostnadsfritt hembesök. Du får en tydlig offert med omfattning och pris innan arbetet påbörjas."
+  "boka_text": "Beskriv ditt projekt så kontaktar vi dig och bokar ett kostnadsfritt hembesök. Du får en tydlig offert med omfattning och pris innan arbetet påbörjas.",
+  "bolag_knapp": "Om våra bolag"
  },
  "nyheter": [
   [
@@ -384,5 +378,50 @@
   ]
  ],
  "boka_rubrik": "Begär offert",
- "boka_text": "Beskriv ditt projekt så kontaktar vi dig och bokar ett kostnadsfritt hembesök. Du får en tydlig offert med omfattning och pris innan arbetet påbörjas."
+ "boka_text": "Beskriv ditt projekt så kontaktar vi dig och bokar ett kostnadsfritt hembesök. Du får en tydlig offert med omfattning och pris innan arbetet påbörjas.",
+ "sidor": [
+  [
+   "verksamhet",
+   "Tjänster",
+   "verksamhet"
+  ],
+  [
+   "bolag",
+   "Våra bolag",
+   "bolag"
+  ],
+  [
+   "projekt",
+   "Projekt",
+   "projekt"
+  ],
+  [
+   "hallbarhet",
+   "Kvalitet & miljö",
+   "hallbarhet"
+  ],
+  [
+   "faq",
+   "Frågor & svar",
+   "faq"
+  ],
+  [
+   "karriar",
+   "Jobba hos oss",
+   "karriar"
+  ],
+  [
+   "om-oss",
+   "Om oss",
+   "om-oss"
+  ]
+ ],
+ "nav": [
+  "verksamhet",
+  "bolag",
+  "projekt",
+  "hallbarhet",
+  "karriar",
+  "om-oss"
+ ]
 }
