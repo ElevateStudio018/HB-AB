@@ -1,0 +1,388 @@
+{
+ "profil": "bygg",
+ "namn": "Haninge Byggteam AB",
+ "kortnamn": "Haninge Byggteam",
+ "slug": "haninge-byggteam",
+ "typ": "Bygg och renovering i Stockholm",
+ "tagline": "Kvalitet som håller",
+ "slogan": "Kompletta bygg- och renoveringslösningar",
+ "hero_rubrik": "Kvalitet som håller",
+ "hero_text": "Bygg och renovering för privatpersoner, företag och bostadsrättsföreningar i Stockholm och på Södertörn – från badrum och kök till totalrenoveringar och tillbyggnader.",
+ "intro_rubrik": "Byggföretag med verksamhet i Stockholm",
+ "om": [
+  "Haninge Byggteam AB är ett byggföretag med verksamhet i Stockholm. Företaget hjälper privatpersoner och företag med allt från mindre renoveringar till större byggprojekt.",
+  "Med fokus på kvalitet, tydlig kommunikation och ett professionellt arbetssätt strävar teamet efter att leverera hållbara resultat och en smidig upplevelse genom hela projektet. Varje uppdrag planeras noggrant för att säkerställa ett slutresultat som motsvarar kundens förväntningar."
+ ],
+ "vagval_rubrik": "Vad kan vi hjälpa dig med?",
+ "tjanster": [
+  {
+   "titel": "Totalrenovering",
+   "ikon": "hus",
+   "href": "verksamhet.html#omr-0",
+   "text": "Kompletta totalrenoveringar från idé till färdigt resultat."
+  },
+  {
+   "titel": "Köksrenovering",
+   "ikon": "hem",
+   "href": "verksamhet.html#omr-0",
+   "text": "Rivning, montering av kök och inredning, golv och ytskikt."
+  },
+  {
+   "titel": "Badrumsrenovering",
+   "ikon": "vatten",
+   "href": "verksamhet.html#omr-0",
+   "text": "Från rivning och tätskikt till kakel, klinker och montering."
+  },
+  {
+   "titel": "Målning & ytskikt",
+   "ikon": "pensel",
+   "href": "verksamhet.html#omr-1",
+   "text": "Målning, spackling, gips och andra ytskikt."
+  },
+  {
+   "titel": "Golv, kakel & klinker",
+   "ikon": "ritning",
+   "href": "verksamhet.html#omr-1",
+   "text": "Parkett, laminat, vinyl samt kakel och klinker."
+  },
+  {
+   "titel": "Snickeri & inredning",
+   "ikon": "hamare",
+   "href": "verksamhet.html#omr-2",
+   "text": "Köksmontering, specialanpassade lösningar och snickeridetaljer."
+  },
+  {
+   "titel": "Dörrar, fönster & tak",
+   "ikon": "nyckel",
+   "href": "verksamhet.html#omr-2",
+   "text": "Byte och montering av dörrar och fönster, innertak och undertak."
+  },
+  {
+   "titel": "Om- & tillbyggnad",
+   "ikon": "kran",
+   "href": "verksamhet.html#omr-2",
+   "text": "Ombyggnationer, tillbyggnader, altaner, trädäck och fasad."
+  },
+  {
+   "titel": "Betong & håltagning",
+   "ikon": "sten",
+   "href": "verksamhet.html#omr-3",
+   "text": "Gjutning, bilning, håltagning, rivning och återställning."
+  },
+  {
+   "titel": "VVS & ledningar",
+   "ikon": "ror",
+   "href": "verksamhet.html#omr-3",
+   "text": "Byte och anpassning av vatten- och avloppsledningar."
+  },
+  {
+   "titel": "Begär offert",
+   "ikon": "dokument",
+   "href": "om-oss.html#kontakt",
+   "text": "Kostnadsfritt hembesök och fast offert."
+  },
+  {
+   "titel": "Jobba hos oss",
+   "ikon": "folk",
+   "href": "karriar.html",
+   "text": "Vi tar gärna emot ansökningar från hantverkare."
+  }
+ ],
+ "affarsomraden": [
+  {
+   "titel": "Renovering",
+   "text": "Totalrenovering av bostäder, villor och andra fastigheter – samt kompletta kök och badrum, från rivning och tätskikt till montering.",
+   "text2": "Vi samordnar arbetet för en smidig renoveringsprocess och ett resultat som håller över tid.",
+   "tagg": "hb-kok"
+  },
+  {
+   "titel": "Ytskikt, golv & plattsättning",
+   "text": "Målning, spackling och gipsarbeten samt parkett, laminat, vinyl, kakel och klinker i bostäder och lokaler.",
+   "text2": "Noggrant underarbete och rätt material ger jämna och hållbara ytor.",
+   "tagg": "hb-malning"
+  },
+  {
+   "titel": "Bygg & snickeri",
+   "text": "Snickeri och inredning, dörrar, fönster och tak, ombyggnationer och tillbyggnader – och utvändigt altaner, trädäck, staket och fasad.",
+   "text2": "Varje projekt anpassas efter fastighetens förutsättningar och dina önskemål.",
+   "tagg": "hb-altan"
+  },
+  {
+   "titel": "Grund & installation",
+   "text": "Betongarbeten, gjutning, bilning, håltagning, rivning och återställning – samt byte och anpassning av vatten- och avloppsledningar.",
+   "text2": "Arbetena samordnas med projektets övriga moment.",
+   "tagg": "hb-fasad"
+  }
+ ],
+ "bolag": [
+  {
+   "namn": "Privatpersoner",
+   "segment": "Villa, radhus och bostadsrätt",
+   "rubrik": "Från ett badrum till hela huset",
+   "text": "Kök, badrum, totalrenoveringar, tillbyggnader och altaner – med en tydlig offert innan arbetet påbörjas.",
+   "tagg": "hb-badrum"
+  },
+  {
+   "namn": "Företag och fastighetsägare",
+   "segment": "Lokaler och lägenheter",
+   "rubrik": "Renovering av lokaler och lägenheter",
+   "text": "Ytskikt, badrum, håltagning och VVS – planerat med hänsyn till hyresgäster och verksamhet.",
+   "tagg": "hb-hall"
+  },
+  {
+   "namn": "Bostadsrättsföreningar",
+   "segment": "Gemensamma utrymmen",
+   "rubrik": "I dialog med styrelsen",
+   "text": "Badrum, målning, golv och åtgärder i gemensamma utrymmen, med hänsyn till de boende.",
+   "tagg": "hb-malning"
+  }
+ ],
+ "berattelser": [
+  {
+   "rubrik": "Totalrenovering av villa i Stockholm",
+   "text": "Från rivning och grundarbete till målning, golv, snickeri och färdiga ytskikt.",
+   "tagg": "hb-hus"
+  },
+  {
+   "rubrik": "Modern köksrenovering i Haninge",
+   "text": "Ett funktionellt och hållbart kök som passar både bostaden och familjen.",
+   "tagg": "hb-kok"
+  },
+  {
+   "rubrik": "Ny altan i trä i Tyresö",
+   "text": "Utvändigt snickeri som förlänger säsongen.",
+   "tagg": "hb-altan"
+  }
+ ],
+ "nyckeltal": [
+  {
+   "varde": "10",
+   "enhet": "",
+   "etikett": "Tjänsteområden under ett tak"
+  },
+  {
+   "varde": "4",
+   "enhet": "",
+   "etikett": "Affärsområden"
+  },
+  {
+   "varde": "5",
+   "enhet": "",
+   "etikett": "Kommuner vi arbetar i"
+  },
+  {
+   "varde": "5,0",
+   "enhet": "",
+   "etikett": "Betyg på Google"
+  }
+ ],
+ "projekt": [
+  {
+   "namn": "Totalrenovering av villa",
+   "ort": "Stockholm",
+   "typ": "Totalrenovering",
+   "ar": "",
+   "status": "Färdigt",
+   "text": "Rivning, grundarbete, golv, snickeri och färdiga ytskikt.",
+   "tagg": "hb-hus"
+  },
+  {
+   "namn": "Modern köksrenovering",
+   "ort": "Haninge",
+   "typ": "Kök",
+   "ar": "",
+   "status": "Färdigt",
+   "text": "Nytt kök med köksö, golv och ytskikt.",
+   "tagg": "hb-kok"
+  },
+  {
+   "namn": "Ny altan i trä",
+   "ort": "Tyresö",
+   "typ": "Utomhus",
+   "ar": "",
+   "status": "Färdigt",
+   "text": "Altan och trädäck i trä.",
+   "tagg": "hb-altan"
+  },
+  {
+   "namn": "Badrumsrenovering",
+   "ort": "Stockholm",
+   "typ": "Badrum",
+   "ar": "",
+   "status": "Färdigt",
+   "text": "Tätskikt, kakel, klinker och montering.",
+   "tagg": "hb-badrum"
+  },
+  {
+   "namn": "Fasadarbete",
+   "ort": "Stockholm",
+   "typ": "Tillbyggnad",
+   "ar": "",
+   "status": "Färdigt",
+   "text": "Utvändigt arbete på fasad.",
+   "tagg": "hb-fasad"
+  },
+  {
+   "namn": "Målning",
+   "ort": "Stockholm",
+   "typ": "Målning",
+   "ar": "",
+   "status": "Färdigt",
+   "text": "Målning och ytskikt i lägenhet.",
+   "tagg": "hb-malning"
+  }
+ ],
+ "process_rubrik": "Så går ett uppdrag till",
+ "process": [
+  {
+   "titel": "Kontakt",
+   "text": "Du kontaktar oss och berättar om ditt projekt eller dina önskemål. Vi går igenom dina behov och bokar nästa steg.",
+   "tagg": "hb-bil"
+  },
+  {
+   "titel": "Kostnadsfritt hembesök",
+   "text": "Vi träffas på plats för att titta på projektet och diskutera olika lösningar.",
+   "tagg": "hb-hall"
+  },
+  {
+   "titel": "Fast offert",
+   "text": "Du får en tydlig offert med omfattning och pris innan arbetet påbörjas.",
+   "tagg": "hb-kok"
+  },
+  {
+   "titel": "Renovering",
+   "text": "Arbetet utförs med löpande dialog. När det är klart gör vi en gemensam genomgång.",
+   "tagg": "hb-badrum"
+  }
+ ],
+ "hallbarhet": {
+  "rubrik": "Kvalitet som håller över tid",
+  "text": "Varje uppdrag planeras noggrant. Med noggrant underarbete, rätt material och tydlig kommunikation levererar vi hållbara resultat som motsvarar kundens förväntningar.",
+  "mal": [
+   [
+    "Fast",
+    "pris i offerten innan arbetet påbörjas"
+   ],
+   [
+    "Tydlig",
+    "tidsplan innan start"
+   ],
+   [
+    "Gemensam",
+    "genomgång när arbetet är klart"
+   ]
+  ]
+ },
+ "karriar": {
+  "rubrik": "Bygg din framtid hos oss",
+  "text": "Vi tar gärna emot ansökningar från hantverkare inom bygg, snickeri, målning och plattsättning.",
+  "jobb": [
+   [
+    "Spontanansökan",
+    "Stockholm"
+   ]
+  ]
+ },
+ "kultur": "Varierade uppdrag i Stockholm och på Södertörn, tillsammans med kollegor från flera yrkesgrupper.",
+ "omdomen": [
+  {
+   "text": "Jag är mycket nöjd med Haninge Byggteam AB. Arbetet utfördes professionellt, med hög kvalitet och enligt överenskommen tidsplan. Trevlig personal, bra kommunikation och ett resultat som överträffade mina förväntningar.",
+   "namn": "Ihtik AlimJanov",
+   "ort": "Google-recension"
+  }
+ ],
+ "faq": [
+  [
+   "Vilka områden arbetar ni i?",
+   "Vi utför bygg- och renoveringsarbeten i Stockholm och närliggande områden, bland annat Haninge, Tyresö, Huddinge och Nacka."
+  ],
+  [
+   "Hur kontaktar jag er?",
+   "Du når oss på telefon 072-002 22 00 eller info@haningebyggteam.se."
+  ],
+  [
+   "Erbjuder ni kostnadsfri offert?",
+   "Ja, kontakta oss så bokar vi ett kostnadsfritt möte och går igenom ditt projekt."
+  ],
+  [
+   "Vilka tjänster erbjuder ni?",
+   "Vi erbjuder bland annat totalrenoveringar, köksrenoveringar, badrumsrenoveringar, tillbyggnader och altanbyggen."
+  ],
+  [
+   "Hur lång tid tar ett byggprojekt?",
+   "Tidsplanen varierar beroende på projektets omfattning. En tydlig tidsplan presenteras alltid innan arbetet påbörjas."
+  ],
+  [
+   "Arbetar ni även åt företag och bostadsrättsföreningar?",
+   "Ja. Vi utför uppdrag för privatpersoner, företag, fastighetsägare och bostadsrättsföreningar."
+  ]
+ ],
+ "kontakt": {
+  "adress": "Albybergsringen 105",
+  "postnr": "137 69",
+  "ort": "Österhaninge",
+  "telefon": "072-002 22 00",
+  "epost": "info@haningebyggteam.se",
+  "orgnr": "559229-1115"
+ },
+ "oppettider": "Mån–fre 07.00–16.30",
+ "omrade": "Stockholm och Södertörn: Haninge, Stockholm, Tyresö, Huddinge och Nacka",
+ "fot_cta": "Ska du bygga eller renovera? Vi bokar ett kostnadsfritt hembesök.",
+ "bild": {
+  "panel": "hb-fasad",
+  "hb": "hb-kok",
+  "om": "hb-bil",
+  "sida_bolag": "hb-hall",
+  "sida_om": "hb-hus",
+  "sida_hb": "hb-badrum",
+  "sida_faq": "hb-hall",
+  "sida_karriar": "hb-fasad",
+  "citat": "hb-fasad"
+ },
+ "text": {
+  "bolag_etikett": "Kunder",
+  "bolag_rubrik": "Vi bygger för",
+  "meny_bolag": "Kunder",
+  "bolag_kol": [
+   "Kund",
+   "Inriktning",
+   "Det här gör vi"
+  ],
+  "bolag_till": "Läs mer",
+  "sida_bolag_ingress": "Vi arbetar för privatpersoner, företag, fastighetsägare och bostadsrättsföreningar.",
+  "sida_bolag_lank": "Kontakta oss",
+  "omdomen_rubrik": "Vad kunderna säger",
+  "hb_etikett": "Kvalitet",
+  "fot_cta": "Ska du bygga eller renovera? Vi bokar ett kostnadsfritt hembesök.",
+  "ny_etikett": "Aktuellt",
+  "ny_rubrik": "Senaste uppdragen",
+  "ny_rubrik_lista": "Senaste uppdragen",
+  "ny_lank": "Alla projekt",
+  "ber_etikett": "Projekt",
+  "ber_rubrik": "Utvalda uppdrag",
+  "boka_rubrik": "Begär offert",
+  "boka_text": "Beskriv ditt projekt så kontaktar vi dig och bokar ett kostnadsfritt hembesök. Du får en tydlig offert med omfattning och pris innan arbetet påbörjas."
+ },
+ "nyheter": [
+  [
+   "Projekt",
+   "Totalrenovering av villa i Stockholm",
+   "Från rivning och grundarbete till färdiga ytskikt.",
+   "hb-hus"
+  ],
+  [
+   "Projekt",
+   "Modern köksrenovering i Haninge",
+   "Nytt kök med köksö, golv och ytskikt.",
+   "hb-kok"
+  ],
+  [
+   "Projekt",
+   "Ny altan i trä i Tyresö",
+   "Utvändigt snickeri som förlänger säsongen.",
+   "hb-altan"
+  ]
+ ],
+ "boka_rubrik": "Begär offert",
+ "boka_text": "Beskriv ditt projekt så kontaktar vi dig och bokar ett kostnadsfritt hembesök. Du får en tydlig offert med omfattning och pris innan arbetet påbörjas."
+}
