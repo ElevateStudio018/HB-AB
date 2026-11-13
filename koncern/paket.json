@@ -88,7 +88,7 @@
  "sidhero": "bild",
  "motiv": "inget",
  "block": {
-  "vagval": "rutor",
+  "vagval": "hb-duo",
   "bolag": "zigzag",
   "siffror": "bild",
   "nyheter": "tidning",
@@ -102,7 +102,6 @@
  },
  "ordning_lista": [
   "vagval",
-  "bolag",
   "siffror",
   "projekt",
   "process",

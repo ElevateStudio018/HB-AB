@@ -80,7 +80,27 @@ def load_generator():
         self.reserv = ["hb-kok", "hb-badrum", "hb-hus", "hb-altan", "hb-fasad", "hb-malning", "hb-hall", "hb-stomme", "hb-bil"]
 
     generera.Bilder.__init__ = init
+    generera.varianter.REG[("vagval", "hb-duo")] = vagval_och_bolag
     return generera
+
+
+def vagval_och_bolag(self):
+    """Startsidan: tjänsterna som en ren lista bredvid Våra bolag."""
+    from generera import ikon, PIL
+    b = self.b
+    rader = "".join(f'<li><a href="{t["href"]}">{ikon(t["ikon"])}<span>{E(t["titel"])}</span>{PIL}</a></li>'
+                    for t in b["tjanster"] if "omr-" in t["href"])
+    bolag = ""
+    for i, x in enumerate(self.bolagslista()):
+        bild = self.bilder.ta(x.get("tagg"))
+        bolag += (f'<a class="vb-bolag" href="bolag.html#bolag-{i}"><span class="vb-bild">{self.bilder.img(bild, "160px")}</span>'
+                  f'<span class="vb-text"><small>{E(x.get("segment", ""))}</small><b>{E(x["namn"])}</b><i>{"haningeriv.se" if i == 1 else "Läs mer"} {PIL}</i></span></a>')
+    return f'''<section class="sek vb" aria-labelledby="vb-h"><div class="wrap vb-grid">
+  <div class="vb-tj"><span class="etikett">Tjänster</span><h2 id="vb-h">Vad kan vi hjälpa dig med?</h2>
+    <ul class="vb-lista">{rader}</ul>
+    <div class="knappar">{self.knapp("Alla tjänster", "verksamhet.html")}{self.textlank("Begär offert", "om-oss.html#kontakt")}</div></div>
+  <aside class="vb-bo"><span class="etikett">Koncernen</span><h2>Våra bolag</h2><div class="vb-bolagen">{bolag}</div></aside>
+</div></section>'''
 
 
 def quote_form():
@@ -114,6 +134,31 @@ EXTRA_CSS = """
 /* Tjänstesidan: rundade bildpaneler */
 .panel { border-radius: var(--r-card); overflow: hidden; }
 .panel-bild .bild-fyll, .panel-bild img { border-radius: 0; }
+
+/* Startsidan: tjänster bredvid Våra bolag */
+.vb-grid { display: grid; gap: 48px; }
+@media (min-width: 1000px) { .vb-grid { grid-template-columns: 1.55fr 1fr; gap: 72px; align-items: start; } }
+.vb h2 { margin: 10px 0 28px; }
+.vb-lista { list-style: none; margin: 0; padding: 0; display: grid; border-top: 1px solid var(--c-line); }
+@media (min-width: 640px) { .vb-lista { grid-template-columns: 1fr 1fr; column-gap: 32px; } }
+.vb-lista a { display: flex; align-items: center; gap: 14px; padding: 17px 2px; border-bottom: 1px solid var(--c-line); color: inherit; text-decoration: none; font-weight: 600; }
+.vb-lista a > svg:first-child { width: 22px; height: 22px; flex: none; color: var(--c-p); }
+.vb-lista a span { flex: 1; }
+.vb-lista a > svg:last-child { width: 18px; height: 18px; color: var(--c-p); transition: transform .2s; }
+.vb-lista a:hover { color: var(--c-p); }
+.vb-lista a:hover > svg:last-child { transform: translateX(4px); }
+.vb .knappar { margin-top: 30px; }
+.vb-bo { background: var(--c-yta); border-radius: var(--r-card); padding: clamp(24px, 3vw, 36px); }
+.vb-bolagen { display: grid; gap: 14px; }
+.vb-bolag { display: flex; gap: 16px; align-items: center; padding: 12px; background: #fff; border-radius: var(--r-card); color: inherit; text-decoration: none; transition: box-shadow .2s, transform .2s; }
+.vb-bolag:hover { box-shadow: 0 14px 34px rgba(14,42,71,.12); transform: translateY(-2px); }
+.vb-bild { flex: none; width: 110px; height: 96px; border-radius: var(--r-img); overflow: hidden; }
+.vb-bild img { width: 100%; height: 100%; object-fit: cover; }
+.vb-text { display: grid; gap: 4px; }
+.vb-text small { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--c-mut); }
+.vb-text b { font-size: 18px; line-height: 1.2; }
+.vb-text i { font-style: normal; font-weight: 600; font-size: 14px; color: var(--c-p); display: inline-flex; align-items: center; gap: 6px; }
+.vb-text i svg { width: 16px; height: 16px; }
 
 /* Loggan */
 .logga-bild { display: block; height: 64px; width: auto; }
