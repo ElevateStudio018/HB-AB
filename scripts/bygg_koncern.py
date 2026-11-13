@@ -100,14 +100,11 @@ EXTRA_CSS = """
 .boka-klar[hidden] { display: none; }
 .boka-klar h3 { margin: 0 0 8px; }
 
-/* Haninge Byggteam: mörkblå gradient bakom herotexten så att den syns mot den ljusa himlen */
-body[data-herotext="hoger"] .hero .bild-fyll::after { background: linear-gradient(270deg, rgba(10,31,54,.82) 0%, rgba(10,31,54,.45) 42%, rgba(10,31,54,0) 75%), linear-gradient(0deg, rgba(10,31,54,.5), rgba(10,31,54,0) 45%), linear-gradient(180deg, rgba(10,31,54,.45), rgba(10,31,54,0) 22%); }
-body[data-herotext="hoger"] .hero .hero-txt .ingress { max-width: 30em; }
+/* Haninge Byggteam: mörkblå gradient bakom herotexten (nere till vänster) */
+body[data-herotext="nere"] .hero .bild-fyll::after { background: linear-gradient(90deg, rgba(10,31,54,.7) 0%, rgba(10,31,54,.3) 45%, rgba(10,31,54,0) 70%), linear-gradient(0deg, rgba(10,31,54,.75) 0%, rgba(10,31,54,0) 55%), linear-gradient(180deg, rgba(10,31,54,.45), rgba(10,31,54,0) 22%); }
 @media (max-width: 720px) {
-  body[data-herotext="hoger"] .hero .bild-fyll img { object-position: 32% 50%; }
-  body[data-herotext="hoger"] .hero .bild-fyll::after { background: linear-gradient(0deg, rgba(10,31,54,.92) 0%, rgba(10,31,54,.6) 38%, rgba(10,31,54,0) 62%), linear-gradient(180deg, rgba(10,31,54,.5), rgba(10,31,54,0) 20%); }
-  body[data-herotext="hoger"] .hero .hero-txt { text-align: left; align-items: flex-start; }
-  body[data-herotext="hoger"] .hero .hero-txt .knappar { justify-content: flex-start; }
+  body[data-herotext="nere"] .hero .bild-fyll img { object-position: 60% 50%; }
+  body[data-herotext="nere"] .hero .bild-fyll::after { background: linear-gradient(0deg, rgba(10,31,54,.92) 0%, rgba(10,31,54,.6) 40%, rgba(10,31,54,0) 65%), linear-gradient(180deg, rgba(10,31,54,.5), rgba(10,31,54,0) 20%); }
 }
 """
 

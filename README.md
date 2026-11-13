@@ -2,7 +2,7 @@
 
 Ny webbplats för Haninge Byggteam AB (bygg och renovering i Stockholm och på Södertörn), byggd med Elevate Studios
 **koncern-agent** och generator från [Ohan-entreprenad](https://github.com/ElevateStudio018/Ohan-entreprenad)
-(`.claude/agents/koncern.md`, `koncern/`). Grafiskt paket: profil *bygg*, helskärmshero med texten till höger (`herotext: hoger`), arketyp finans, minsta avstånd 12.3; marinblått `#0e2a47` och gult
+(`.claude/agents/koncern.md`, `koncern/`). Grafiskt paket: profil *bygg*, helskärmshero med texten nere till vänster (`herotext: nere`), arketyp finans, minsta avstånd 12.3; marinblått `#0e2a47` och gult
 `#f6c30f` från företagets profil, Poppins i fet vikt. Helskärmshero, vägval, kunder, projekt i bento, arbetsgång,
 vanliga frågor, kundomdöme och offertformulär.
 
@@ -39,7 +39,7 @@ Ihtik AlimJanov, samt projekten i Haninge, Stockholm och Tyresö.
 
 ## Bilder
 
-Heron och kvalitetsavsnittet använder stockfoton från Pexels: [8829896](https://www.pexels.com/photo/8829896/) (hero),
+Heron och kvalitetsavsnittet använder stockfoton från Pexels: [7031408](https://www.pexels.com/photo/7031408/) (hero), [8829896](https://www.pexels.com/photo/8829896/),
 [8821542](https://www.pexels.com/photo/8821542/) och [4642437](https://www.pexels.com/photo/4642437/) (`px-*` i `koncern/bilder/`).
 Övriga bilder kommer från haningebyggteam.se. `hb-fasad`, `hb-malning`, `hb-badrum-klart` och `hb-bil` är riktiga jobbfoton;
 villan, köken, badrummet, hallen och altanen från gamla sajten ser ut som visualiseringar och märks som illustrationsbilder
