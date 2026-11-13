@@ -74,7 +74,7 @@
   "bild": 0,
   "hero": 0
  },
- "hero": "band",
+ "hero": "helskarm",
  "header": "transparent",
  "meny": "inline",
  "ruta": "mork",
@@ -90,7 +90,7 @@
  "block": {
   "vagval": "rutor",
   "bolag": "zigzag",
-  "siffror": "jatte",
+  "siffror": "bild",
   "nyheter": "tidning",
   "omdomen": "h-chatt",
   "berattelser": "f-paneler",
@@ -101,14 +101,14 @@
   "boka": "standard"
  },
  "ordning_lista": [
-  "berattelser",
-  "faq",
   "vagval",
   "bolag",
-  "omdomen",
-  "process",
+  "siffror",
   "projekt",
+  "process",
+  "omdomen",
   "hb",
+  "faq",
   "boka"
  ],
  "panel_omvand": true,
@@ -142,9 +142,9 @@
  },
  "profil": "bygg",
  "min_avstand": 12.3,
- "herotext": "kort",
+ "herotext": "hoger",
  "hero_tagg": "hb-hus",
- "hero_bild_id": "hb-villa",
+ "hero_bild_id": "px-8829896",
  "bildreserv": [
   "bygg",
   "interior",

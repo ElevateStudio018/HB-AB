@@ -39,11 +39,11 @@ E = html.escape
 
 
 def prepare_bank():
-    """Lägger företagets egna bilder i generatorns bildbank (taggar hb-*), om de inte redan finns där."""
+    """Lägger sajtens bilder (företagets egna och utvalda Pexels-bilder, taggar hb-*) i generatorns bildbank."""
     bank, tsv = OHAN / "koncern" / "bildbank", OHAN / "koncern" / "bildbank.tsv"
     rows = (ROT / "koncern" / "bilder" / "bilder.tsv").read_text(encoding="utf-8").splitlines()
     have = tsv.read_text(encoding="utf-8")
-    for f in (ROT / "koncern" / "bilder").glob("hb-*.jpg"):
+    for f in (ROT / "koncern" / "bilder").glob("*.jpg"):
         shutil.copy(f, bank / f.name)
     missing = [r for r in rows if r.strip() and r.split("\t")[0] + "\t" not in have]
     if missing:
@@ -99,6 +99,16 @@ EXTRA_CSS = """
 .boka-klar { display: block; }
 .boka-klar[hidden] { display: none; }
 .boka-klar h3 { margin: 0 0 8px; }
+
+/* Haninge Byggteam: mörkblå gradient bakom herotexten så att den syns mot den ljusa himlen */
+body[data-herotext="hoger"] .hero .bild-fyll::after { background: linear-gradient(270deg, rgba(10,31,54,.82) 0%, rgba(10,31,54,.45) 42%, rgba(10,31,54,0) 75%), linear-gradient(0deg, rgba(10,31,54,.5), rgba(10,31,54,0) 45%), linear-gradient(180deg, rgba(10,31,54,.45), rgba(10,31,54,0) 22%); }
+body[data-herotext="hoger"] .hero .hero-txt .ingress { max-width: 30em; }
+@media (max-width: 720px) {
+  body[data-herotext="hoger"] .hero .bild-fyll img { object-position: 32% 50%; }
+  body[data-herotext="hoger"] .hero .bild-fyll::after { background: linear-gradient(0deg, rgba(10,31,54,.92) 0%, rgba(10,31,54,.6) 38%, rgba(10,31,54,0) 62%), linear-gradient(180deg, rgba(10,31,54,.5), rgba(10,31,54,0) 20%); }
+  body[data-herotext="hoger"] .hero .hero-txt { text-align: left; align-items: flex-start; }
+  body[data-herotext="hoger"] .hero .hero-txt .knappar { justify-content: flex-start; }
+}
 """
 
 
