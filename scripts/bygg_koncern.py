@@ -81,7 +81,24 @@ def load_generator():
 
     generera.Bilder.__init__ = init
     generera.varianter.REG[("vagval", "hb-duo")] = vagval_och_bolag
+    generera.varianter.REG[("hb-tjanster", None)] = tjanster_kort
     return generera
+
+
+def tjanster_kort(self):
+    """Startsidan: Våra tjänster som fyra stora bildkort, ett per affärsområde."""
+    from generera import PIL
+    kort = ""
+    for i, a in enumerate(self.b["affarsomraden"]):
+        bild = self.bilder.ta(a["tagg"])
+        kort += (f'<li><a class="tk-kort" href="verksamhet.html#omr-{i}"><span class="tk-bild">{self.bilder.img(bild, "(min-width:1100px) 25vw, (min-width:640px) 50vw, 100vw")}</span>'
+                 f'<span class="tk-text"><small>{i + 1:02d}</small><b>{E(a["titel"])}</b><span>{E(a["text"])}</span><i>Läs mer {PIL}</i></span></a></li>')
+    return f'''<section class="sek tk" aria-labelledby="tk-h"><div class="wrap">
+  <div class="tk-huvud"><div><span class="etikett">Vårt erbjudande</span><h2 id="tk-h">Våra tjänster</h2></div>
+    <p>Från badrum och kök till totalrenoveringar, tillbyggnader och grundarbeten – samordnat av ett team med en kontaktperson.</p>
+    {self.knapp("Alla tjänster", "verksamhet.html")}</div>
+  <ul class="tk-grid">{kort}</ul>
+</div></section>'''
 
 
 def vagval_och_bolag(self):
@@ -134,6 +151,34 @@ EXTRA_CSS = """
 /* Tjänstesidan: rundade bildpaneler */
 .panel { border-radius: var(--r-card); overflow: hidden; }
 .panel-bild .bild-fyll, .panel-bild img { border-radius: 0; }
+
+/* Ingen topprad: heron fyller hela skärmen; större rubrik */
+:root { --topp-h: 0px !important; }
+.topprad { display: none !important; }
+body[data-herotext="nere"] .hero .hero-txt h1, body[data-herotext="nere"] .hero .hero-txt h2 { font-size: calc(clamp(50px, 8.2vw, 136px) * var(--skala-r)); line-height: .98; }
+body[data-herotext="nere"] .hero .hero-txt .ingress { font-size: clamp(17px, 1.4vw, 21px); max-width: 38em; }
+
+/* Startsidan: Våra tjänster som stora bildkort */
+.tk-huvud { display: grid; gap: 18px; margin-bottom: clamp(28px, 4vw, 48px); align-items: end; }
+@media (min-width: 1000px) { .tk-huvud { grid-template-columns: 1fr 1.2fr auto; gap: 48px; } }
+.tk-huvud h2 { margin: 10px 0 0; }
+.tk-huvud p { margin: 0; color: var(--c-mut); max-width: 40em; }
+.tk-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+@media (min-width: 640px) { .tk-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1100px) { .tk-grid { grid-template-columns: repeat(4, 1fr); } }
+.tk-kort { position: relative; display: block; aspect-ratio: 3 / 4; border-radius: var(--r-card); overflow: hidden; color: #fff; text-decoration: none; isolation: isolate; }
+.tk-bild, .tk-bild img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.tk-bild img { transition: transform .7s ease; }
+.tk-kort::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(0deg, rgba(10,31,54,.92) 0%, rgba(10,31,54,.55) 45%, rgba(10,31,54,.05) 75%); transition: background .3s; }
+.tk-kort:hover .tk-bild img { transform: scale(1.05); }
+.tk-text { position: absolute; z-index: 2; inset: auto 0 0 0; display: grid; gap: 8px; padding: 26px; }
+.tk-text small { font-size: 13px; font-weight: 700; letter-spacing: .1em; color: var(--c-a); }
+.tk-text b { font-size: clamp(21px, 1.7vw, 26px); line-height: 1.15; }
+.tk-text span { font-size: 14.5px; line-height: 1.5; opacity: .88; }
+.tk-text i { font-style: normal; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; }
+.tk-text i svg { width: 16px; height: 16px; transition: transform .2s; }
+.tk-kort:hover .tk-text i svg { transform: translateX(4px); }
+@media (max-width: 639px) { .tk-kort { aspect-ratio: 4 / 3.4; } }
 
 /* Startsidan: tjänster bredvid Våra bolag */
 .vb-grid { display: grid; gap: 48px; }
@@ -191,6 +236,7 @@ def postprocess(out):
         doc = re.sub(r'<form class="boka-form".*?</form>', lambda m: quote_form(), doc, flags=re.S)
         doc = re.sub(r'<nav aria-label="Juridiskt">.*?</nav>', "", doc, flags=re.S)
         doc = defer_slides(doc)
+        doc = re.sub(r'<div class="topprad">.*?</div></div>', "", doc, count=1, flags=re.S)
         # Systerbolaget Haninge Riv & Sanering har en egen webbplats: dess bolagslänkar går dit.
         doc = doc.replace('href="bolag.html#bolag-1"', f'href="{RIV_URL}" target="_blank" rel="noopener"')
         doc = re.sub(r'(<section class="sek-tat" id="bolag-1">.*?<div class="knappar">)<a class="textlank" href="[^"]*"><span>[^<]*</span>',
