@@ -2,7 +2,7 @@
 
 Ny webbplats för Haninge Byggteam AB (bygg och renovering i Stockholm och på Södertörn), byggd med Elevate Studios
 **koncern-agent** och generator från [Ohan-entreprenad](https://github.com/ElevateStudio018/Ohan-entreprenad)
-(`.claude/agents/koncern.md`, `koncern/`). Grafiskt paket: profil *bygg*, helskärmshero med texten till höger (`herotext: hoger`), arketyp finans, hero band, minsta avstånd 12.3; marinblått `#0e2a47` och gult
+(`.claude/agents/koncern.md`, `koncern/`). Grafiskt paket: profil *bygg*, helskärmshero med texten till höger (`herotext: hoger`), arketyp finans, minsta avstånd 12.3; marinblått `#0e2a47` och gult
 `#f6c30f` från företagets profil, Poppins i fet vikt. Helskärmshero, vägval, kunder, projekt i bento, arbetsgång,
 vanliga frågor, kundomdöme och offertformulär.
 
