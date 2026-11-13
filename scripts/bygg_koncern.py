@@ -114,6 +114,11 @@ EXTRA_CSS = """
 .panel { border-radius: var(--r-card); overflow: hidden; }
 .panel-bild .bild-fyll, .panel-bild img { border-radius: 0; }
 
+/* Loggan */
+.logga-bild { display: block; height: 64px; width: auto; }
+@media (max-width: 720px) { .logga-bild { height: 46px; } }
+.fot-namn .fot-logga { display: block; width: 150px; height: auto; margin-bottom: 8px; }
+
 /* Haninge Byggteam: offertformulär */
 .boka-form select { width: 100%; font: inherit; font-weight: 400; font-size: 16px; padding: 13px 14px; border: 1px solid var(--c-line); border-radius: min(var(--r-card), 8px); background: var(--c-yta); color: inherit; }
 .boka-form select:focus { outline: 2px solid var(--c-p); outline-offset: 1px; }
@@ -140,6 +145,11 @@ def postprocess(out):
         doc = re.sub(r'<form class="boka-form".*?</form>', lambda m: quote_form(), doc, flags=re.S)
         doc = re.sub(r'<nav aria-label="Juridiskt">.*?</nav>', "", doc, flags=re.S)
         doc = defer_slides(doc)
+        # Företagets logga (logo/haninge-byggteam-logo-webb.svg, i sajtens färger) i sidhuvud och sidfot
+        doc = re.sub(r'<span class="ord">Haninge Byggteam</span>(<span class="tag">[^<]*</span>)?',
+                     '<img class="logga-bild" src="assets/logo.svg" alt="" width="69" height="60">', doc)
+        doc = doc.replace('<p class="fot-namn">Haninge Byggteam</p>',
+                          '<p class="fot-namn"><img class="fot-logga" src="assets/logo.svg" alt="Haninge Byggteam AB" width="150" height="131"></p>')
         doc = doc.replace("family=Poppins:wght@400;500;600;700;800", "family=Poppins:wght@400;500;600;700")
         if 'id="qform"' in doc and "offert.js" not in doc:
             doc = doc.replace("</body>", '<script src="assets/offert.js" defer></script>\n</body>')
@@ -147,6 +157,8 @@ def postprocess(out):
     with open(out / "assets" / "bas.css", "a", encoding="utf-8") as fh:
         fh.write(EXTRA_CSS)
     shutil.copy(ROT / "scripts" / "offert.js", out / "assets" / "offert.js")
+    shutil.copy(ROT / "logo" / "haninge-byggteam-logo-webb.svg", out / "assets" / "logo.svg")
+    shutil.copy(ROT / "logo" / "haninge-byggteam-logo-webb.svg", out / "assets" / "favicon.svg")
 
 
 LAZY_SLIDES = """<script>
