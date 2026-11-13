@@ -12,6 +12,7 @@ import json
 import pathlib
 import re
 import shutil
+import subprocess
 import sys
 
 ROT = pathlib.Path(__file__).resolve().parent.parent
@@ -131,12 +132,58 @@ def postprocess(out):
         doc = f.read_text(encoding="utf-8")
         doc = re.sub(r'<form class="boka-form".*?</form>', lambda m: quote_form(), doc, flags=re.S)
         doc = re.sub(r'<nav aria-label="Juridiskt">.*?</nav>', "", doc, flags=re.S)
+        doc = defer_slides(doc)
+        doc = doc.replace("family=Poppins:wght@400;500;600;700;800", "family=Poppins:wght@400;500;600;700")
         if 'id="qform"' in doc and "offert.js" not in doc:
             doc = doc.replace("</body>", '<script src="assets/offert.js" defer></script>\n</body>')
         f.write_text(doc, encoding="utf-8")
     with open(out / "assets" / "bas.css", "a", encoding="utf-8") as fh:
         fh.write(EXTRA_CSS)
     shutil.copy(ROT / "scripts" / "offert.js", out / "assets" / "offert.js")
+
+
+LAZY_SLIDES = """<script>
+/* Bildspelets bild 2 och 3 laddas först när sidan har visats, så att första bilden och texten kommer fram snabbare. */
+addEventListener("load", function () { setTimeout(function () {
+  document.querySelectorAll("img[data-src]").forEach(function (i) {
+    if (i.dataset.srcset) i.srcset = i.dataset.srcset;
+    i.src = i.dataset.src; i.removeAttribute("data-src"); i.removeAttribute("data-srcset");
+  });
+}, 300); });
+</script>"""
+
+
+def defer_slides(doc):
+    """Byter src/srcset mot data-* på hero-bildspelets bilder efter den första."""
+    m = re.search(r'<div class="bildspel" data-bildspel>.*?</section>', doc, flags=re.S)
+    if not m:
+        return doc
+    slides = m.group(0).split('<div class="bild-slide')
+    for i in range(2, len(slides)):
+        slides[i] = re.sub(r'<img src="([^"]+)" srcset="([^"]+)"', r'<img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" data-src="\1" data-srcset="\2"', slides[i], count=1)
+    first = re.search(r'<img src="([^"]+)" srcset="([^"]+)" sizes="([^"]+)"', slides[1]) if len(slides) > 1 else None
+    doc = doc.replace(m.group(0), '<div class="bild-slide'.join(slides))
+    if len(slides) > 2:
+        doc = doc.replace("</body>", LAZY_SLIDES + "\n</body>", 1)
+    if first:  # förladda herobilden
+        pre = f'<link rel="preload" as="image" href="{first.group(1)}" imagesrcset="{first.group(2)}" imagesizes="{first.group(3)}">'
+        doc = doc.replace("</title>", "</title>\n" + pre, 1)
+    return doc
+
+
+def optimize_css(out):
+    """Tar bort oanvända regler ur generatorns bas.css (alla sektionsvarianter, ca 600 kB) och minifierar."""
+    bin_ = ROT / "node_modules" / ".bin"
+    css = out / "assets" / "bas.css"
+    if not (bin_ / "purgecss").exists():
+        print("OBS: kör 'npm install' för att rensa och minifiera CSS (sajten blir annars ca 550 kB tyngre).")
+        return
+    tmp = out / "assets" / "_purge"
+    tmp.mkdir(exist_ok=True)
+    subprocess.run([str(bin_ / "purgecss"), "--css", str(css), "--content", str(out / "**" / "*.html"), str(out / "assets" / "*.js"),
+                    "--safelist", "syns", "aktiv", "fast", "bak", "--output", str(tmp)], check=True)
+    subprocess.run([str(bin_ / "lightningcss"), "--minify", str(tmp / "bas.css"), "-o", str(css)], check=True)
+    shutil.rmtree(tmp)
 
 
 def redirects(out):
@@ -168,7 +215,20 @@ def main():
     postprocess(DOCS)
     redirects(DOCS)
     meta(DOCS)
+    optimize_css(DOCS)
     print(f"Byggde {brief['namn']} -> {DOCS.relative_to(ROT)}/")
+    # Redesignförslagen (koncern/forslag/paket-<n>.json) byggs till docs/forslag/<n>/.
+    forslag = sorted((ROT / "koncern" / "forslag").glob("paket-*.json"))
+    for f in forslag:
+        n = f.stem.split("-")[1]
+        ut = DOCS / "forslag" / n
+        generera.Sajt(dict(brief), json.loads(f.read_text(encoding="utf-8")), ut).bygg()
+        postprocess(ut)
+        (ut / "paket.json").unlink(missing_ok=True)
+        optimize_css(ut)
+    if forslag:
+        shutil.copytree(ROT / "koncern" / "forslag" / "sida", DOCS / "forslag", dirs_exist_ok=True)
+        print(f"Byggde {len(forslag)} redesignförslag -> docs/forslag/")
 
 
 if __name__ == "__main__":

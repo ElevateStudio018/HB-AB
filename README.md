@@ -18,6 +18,7 @@ Förhandsvisning: https://raw.githack.com/ElevateStudio018/HB-AB/claude/sleepy-p
 
 ```bash
 git clone https://github.com/ElevateStudio018/Ohan-entreprenad ../Ohan-entreprenad
+npm install                                # purgecss + lightningcss: rensar generatorns CSS från ca 600 kB till ca 50 kB
 python3 scripts/bygg_koncern.py            # eller: python3 scripts/bygg_koncern.py <sökväg till Ohan-entreprenad>
 ```
 

@@ -1,0 +1,7 @@
+{
+  "name": "hb-ab",
+  "private": true,
+  "description": "Byggverktyg för Haninge Byggteams sajt: rensar och minifierar CSS efter bygget",
+  "scripts": { "build": "python3 scripts/bygg_koncern.py" },
+  "devDependencies": { "lightningcss-cli": "^1.28.0", "purgecss": "^6.0.0" }
+}
