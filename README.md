@@ -39,7 +39,7 @@ Ihtik AlimJanov, samt projekten i Haninge, Stockholm och Tyresö.
 
 ## Bilder
 
-Heron och kvalitetsavsnittet använder stockfoton från Pexels: [7031408](https://www.pexels.com/photo/7031408/) (hero), [8829896](https://www.pexels.com/photo/8829896/),
+Heron och kvalitetsavsnittet använder stockfoton från Pexels: [4642437](https://www.pexels.com/photo/4642437/) (hero), [7031408](https://www.pexels.com/photo/7031408/), [8829896](https://www.pexels.com/photo/8829896/),
 [8821542](https://www.pexels.com/photo/8821542/) och [4642437](https://www.pexels.com/photo/4642437/) (`px-*` i `koncern/bilder/`).
 Övriga bilder kommer från haningebyggteam.se. `hb-fasad`, `hb-malning`, `hb-badrum-klart` och `hb-bil` är riktiga jobbfoton;
 villan, köken, badrummet, hallen och altanen från gamla sajten ser ut som visualiseringar och märks som illustrationsbilder
