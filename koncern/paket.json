@@ -68,10 +68,10 @@
   "band2": "#f6c30f"
  },
  "form": {
-  "namn": "piller-kantig",
+  "namn": "piller-rund",
   "knapp": 999,
-  "kort": 0,
-  "bild": 0,
+  "kort": 16,
+  "bild": 14,
   "hero": 0
  },
  "hero": "helskarm",
