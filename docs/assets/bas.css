@@ -6806,6 +6806,10 @@ a.nbb-sma:hover { transform: translateY(-3px); }
   .non.n2 .non-c:not(.non-forst) { grid-column: 3 / 5; }
 }
 
+/* Rättning av generatorn: ".hero .bild-slide { position: relative }" i bas.css staplade bildspelets bilder under
+   varandra så att heron blev tre skärmar hög. Bara första bilden ska ta plats; de andra ligger ovanpå. */
+.hero .bildspel .bild-slide:not(:first-child) { position: absolute; inset: 0; }
+
 /* Haninge Byggteam: offertformulär */
 .boka-form select { width: 100%; font: inherit; font-weight: 400; font-size: 16px; padding: 13px 14px; border: 1px solid var(--c-line); border-radius: min(var(--r-card), 8px); background: var(--c-yta); color: inherit; }
 .boka-form select:focus { outline: 2px solid var(--c-p); outline-offset: 1px; }

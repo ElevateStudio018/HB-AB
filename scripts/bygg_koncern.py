@@ -65,6 +65,19 @@ def load_generator():
         return orig(self, tagg)
 
     generera.Bilder.ta = ta
+
+    orig_init = generera.Bilder.__init__
+
+    def init(self, *a, **k):
+        # Bara sajtens egna bilder (hb-*/px-*): inga generella stockbilder ur bildbanken.
+        orig_init(self, *a, **k)
+        self.bank = [x for x in self.bank if x["id"].startswith(("hb-", "px-"))]
+        for x in self.bank:
+            if not x["tagg"].startswith("hb-"):
+                x["tagg"] = "hb-ovrig"
+        self.reserv = ["hb-kok", "hb-badrum", "hb-hus", "hb-altan", "hb-fasad", "hb-malning", "hb-hall", "hb-stomme", "hb-bil"]
+
+    generera.Bilder.__init__ = init
     return generera
 
 
@@ -89,6 +102,10 @@ def quote_form():
 
 
 EXTRA_CSS = """
+/* Rättning av generatorn: ".hero .bild-slide { position: relative }" i bas.css staplade bildspelets bilder under
+   varandra så att heron blev tre skärmar hög. Bara första bilden ska ta plats; de andra ligger ovanpå. */
+.hero .bildspel .bild-slide:not(:first-child) { position: absolute; inset: 0; }
+
 /* Haninge Byggteam: offertformulär */
 .boka-form select { width: 100%; font: inherit; font-weight: 400; font-size: 16px; padding: 13px 14px; border: 1px solid var(--c-line); border-radius: min(var(--r-card), 8px); background: var(--c-yta); color: inherit; }
 .boka-form select:focus { outline: 2px solid var(--c-p); outline-offset: 1px; }

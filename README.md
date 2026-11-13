@@ -54,3 +54,10 @@ Skickar via [FormSubmit](https://formsubmit.co). Under förhandsvisningen går f
 
 `.github/workflows/deploy-pages.yml` publicerar `docs/` med GitHub Pages när Pages är aktiverat
 (Settings → Pages → Source: GitHub Actions).
+
+## Fem redesignförslag
+
+`docs/forslag/` innehåller fem kompletta varianter av sajten, gjorda med koncern-agentens fem arketyper (monument,
+koncernband, ramad, industriell, skandinavisk). Paketen ligger i `koncern/forslag/paket-<n>.json` och är registrerade i
+koncern-registret. Översikt: `docs/forslag/index.html`. När ett förslag är valt: kopiera dess paket till
+`koncern/paket.json` och bygg om.
