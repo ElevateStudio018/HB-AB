@@ -83,6 +83,8 @@ def load_generator():
     generera.varianter.REG[("vagval", "hb-duo")] = vagval_och_bolag
     generera.varianter.REG[("hb-tjanster", None)] = tjanster_kort
     generera.varianter.REG[("vagval", "hb-t4")] = bolag_och_tjanster
+    generera.varianter.REG[("siffror", "hb-r5")] = siffror_ringar
+    generera.varianter.REG[("projekt", "hb-p57")] = projekt_lista
     return generera
 
 
@@ -99,6 +101,44 @@ def tjanster_kort(self):
     <p>Från badrum och kök till totalrenoveringar, tillbyggnader och grundarbeten – samordnat av ett team med en kontaktperson.</p>
     {self.knapp("Alla tjänster", "verksamhet.html")}</div>
   <ul class="tk-grid">{kort}</ul>
+</div></section>'''
+
+
+def siffror_ringar(self):
+    """Startsidan (förslag R5): nyckeltalen i ringar över en mörk bild; ringarna fylls och talen räknar upp (scripts/hb.js)."""
+    b = self.b
+    bild = self.bilder.ta("hb-stomme")
+    r, sw = 64, 12
+    size, c = 2 * (r + sw), 2 * 3.14159 * r
+    li = ""
+    for x in b["nyckeltal"]:
+        v = x["varde"]
+        li += (f'<li><div class="r5-ring"><svg viewBox="0 0 {size} {size}" aria-hidden="true">'
+               f'<circle cx="{size/2}" cy="{size/2}" r="{r}" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="{sw}"/>'
+               f'<circle class="r5-fyll" cx="{size/2}" cy="{size/2}" r="{r}" fill="none" stroke="var(--c-a)" stroke-width="{sw}" stroke-linecap="round" '
+               f'stroke-dasharray="{c:.1f}" stroke-dashoffset="{c:.1f}" transform="rotate(-90 {size/2} {size/2})"/></svg>'
+               f'<b data-till="{v.replace(",", ".")}" data-dec="{1 if "," in v else 0}" data-slut="{E(v)}">{E(v)}</b></div><span>{E(x["etikett"])}</span></li>')
+    return f'''<section class="r5 hb-anim" aria-labelledby="r5-h">{self.bilder.img(bild, "100vw")}<div class="wrap">
+  <span class="etikett">{E(b["kortnamn"])} i siffror</span><h2 id="r5-h">{E(b["intro_rubrik"])}</h2><ul class="r5-lista">{li}</ul>
+</div></section>'''
+
+
+def projekt_lista(self):
+    """Startsidan (förslag P5 + P7): mörkblå sektion med filter och en numrerad projektlista; bilden visas vid hover."""
+    from generera import PIL
+    pr = self.b["projekt"]
+    typer = list(dict.fromkeys(p["typ"] for p in pr))
+    chips = '<button type="button" data-typ="" aria-pressed="true">Alla</button>' + "".join(
+        f'<button type="button" data-typ="{E(t)}" aria-pressed="false">{E(t)}</button>' for t in typer)
+    rader = ""
+    for i, p in enumerate(pr, 1):
+        bild = self.bilder.ta(p.get("tagg"))
+        rader += (f'<li data-typ="{E(p["typ"])}"><a href="projekt.html"><em>{i:02d}</em><span class="pf-namn"><b>{E(p["namn"])}</b><small>{E(p["text"])}</small></span>'
+                  f'<span class="pf-meta">{E(p["typ"])} · {E(p["ort"])}</span><span class="pf-bild">{self.bilder.img(bild, "(min-width:900px) 300px, 120px")}</span>{PIL}</a></li>')
+    return f'''<section class="sek pf" data-pf aria-labelledby="pf-h"><div class="wrap">
+  <div class="pf-huvud"><div><span class="etikett">Projekt</span><h2 id="pf-h">Några av våra projekt</h2></div>{self.textlank("Se alla projekt", "projekt.html")}</div>
+  <div class="pf-chips" role="group" aria-label="Filtrera projekt">{chips}</div>
+  <ol class="pf-lista">{rader}</ol>
 </div></section>'''
 
 
@@ -216,6 +256,58 @@ body[data-herotext="nere"] .hero .hero-txt .ingress { font-size: clamp(17px, 1.4
   .tk-grid li:hover .tk-kort::after { background: linear-gradient(0deg, rgba(10,31,54,.95) 0%, rgba(10,31,54,.7) 55%, rgba(10,31,54,.2) 100%); }
 }
 
+/* Startsidan: siffrorna i ringar över mörk bild (R5) */
+.r5 { position: relative; isolation: isolate; color: #fff; padding: clamp(72px, 9vw, 128px) 0; overflow: hidden; }
+.r5 > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+.r5::after { content: ""; position: absolute; inset: 0; z-index: -1; background: rgba(10,31,54,.8); }
+.r5 .wrap { text-align: center; }
+.r5 .etikett { color: var(--c-a); }
+.r5 h2 { color: #fff; margin: 10px auto 0; max-width: 18em; }
+.r5-lista { list-style: none; margin: clamp(36px, 5vw, 56px) 0 0; padding: 0; display: grid; gap: 32px 20px; grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 900px) { .r5-lista { grid-template-columns: repeat(4, 1fr); } }
+.r5-ring { position: relative; width: min(170px, 100%); margin: 0 auto; }
+.r5-ring svg { display: block; width: 100%; }
+.r5-ring b { position: absolute; inset: 0; display: grid; place-items: center; font-size: clamp(32px, 3.2vw, 46px); line-height: 1; }
+.r5-lista span { display: block; margin-top: 14px; font-weight: 600; }
+.r5-fyll { transition: stroke-dashoffset 1.8s cubic-bezier(.2,.7,.2,1); }
+.r5.syns .r5-fyll { stroke-dashoffset: 0; }
+.r5.syns li:nth-child(2) .r5-fyll { transition-delay: .15s; }
+.r5.syns li:nth-child(3) .r5-fyll { transition-delay: .3s; }
+.r5.syns li:nth-child(4) .r5-fyll { transition-delay: .45s; }
+@media (prefers-reduced-motion: reduce) { .r5-fyll { transition: none; stroke-dashoffset: 0; } }
+
+/* Startsidan: projekten som filtrerbar numrerad lista (P5 + P7) */
+.pf { background: var(--c-p); color: #fff; }
+.pf .etikett { color: var(--c-a); }
+.pf h2 { color: #fff; margin: 10px 0 0; }
+.pf .textlank { color: var(--c-a); }
+.pf-huvud { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 26px; }
+.pf-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+.pf-chips button { font: 600 14px var(--font-t); color: #fff; background: transparent; border: 1px solid rgba(255,255,255,.3); border-radius: 999px; padding: 9px 18px; cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
+.pf-chips button:hover { border-color: #fff; }
+.pf-chips button[aria-pressed="true"] { background: var(--c-a); color: var(--c-p); border-color: var(--c-a); }
+.pf-lista { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgba(255,255,255,.16); }
+.pf-lista li[hidden] { display: none; }
+.pf-lista a { position: relative; display: grid; grid-template-columns: 48px 1fr auto 24px; gap: 20px; align-items: center; padding: 26px 6px; border-bottom: 1px solid rgba(255,255,255,.16); color: inherit; text-decoration: none; }
+.pf-lista em { font-style: normal; font-weight: 700; color: var(--c-a); font-size: 14px; }
+.pf-namn { display: grid; gap: 4px; }
+.pf-namn b { font-size: clamp(22px, 2.4vw, 34px); letter-spacing: -.02em; line-height: 1.15; transition: color .2s; }
+.pf-namn small { color: rgba(255,255,255,.65); font-size: 15px; }
+.pf-meta { font-weight: 600; font-size: 14px; color: rgba(255,255,255,.7); }
+.pf-lista a > svg { width: 22px; height: 22px; color: var(--c-a); transition: transform .2s; }
+.pf-bild { position: absolute; right: 26%; top: 50%; width: 280px; height: 190px; border-radius: var(--r-img); overflow: hidden; opacity: 0; transform: translateY(-50%) scale(.92) rotate(-2deg); transition: opacity .3s, transform .3s; pointer-events: none; z-index: 2; box-shadow: 0 24px 50px rgba(0,0,0,.35); }
+.pf-bild img { width: 100%; height: 100%; object-fit: cover; }
+.pf-lista a:hover .pf-bild { opacity: 1; transform: translateY(-50%) scale(1) rotate(-2deg); }
+.pf-lista a:hover .pf-namn b { color: var(--c-a); }
+.pf-lista a:hover > svg { transform: translateX(4px); }
+@media (max-width: 900px) {
+  .pf-lista a { grid-template-columns: 96px 1fr 22px; gap: 14px; padding: 16px 0; }
+  .pf-lista em, .pf-meta { display: none; }
+  .pf-bild { position: static; width: 96px; height: 72px; opacity: 1; transform: none; box-shadow: none; grid-row: 1; grid-column: 1; }
+  .pf-lista a:hover .pf-bild { transform: none; }
+  .pf-namn { grid-column: 2; } .pf-namn b { font-size: 19px; } .pf-namn small { font-size: 13px; }
+}
+
 /* Startsidan: Våra bolag (två separata kort) och tjänsterna som ikonrutor */
 .t4 h2 { margin: 10px 0 0; }
 .t4-huvud { margin-bottom: 24px; }
@@ -310,12 +402,15 @@ def postprocess(out):
         doc = doc.replace('<p class="fot-namn">Haninge Byggteam</p>',
                           '<p class="fot-namn"><img class="fot-logga" src="assets/logo.svg" alt="Haninge Byggteam AB" width="150" height="131"></p>')
         doc = doc.replace("family=Poppins:wght@400;500;600;700;800", "family=Poppins:wght@400;500;600;700")
+        if ("hb-anim" in doc or "data-pf" in doc) and "hb.js" not in doc:
+            doc = doc.replace("</body>", '<script src="assets/hb.js" defer></script>\n</body>')
         if 'id="qform"' in doc and "offert.js" not in doc:
             doc = doc.replace("</body>", '<script src="assets/offert.js" defer></script>\n</body>')
         f.write_text(doc, encoding="utf-8")
     with open(out / "assets" / "bas.css", "a", encoding="utf-8") as fh:
         fh.write(EXTRA_CSS)
     shutil.copy(ROT / "scripts" / "offert.js", out / "assets" / "offert.js")
+    shutil.copy(ROT / "scripts" / "hb.js", out / "assets" / "hb.js")
     shutil.copy(ROT / "logo" / "haninge-byggteam-logo-webb.svg", out / "assets" / "logo.svg")
     shutil.copy(ROT / "logo" / "haninge-byggteam-logo-webb.svg", out / "assets" / "favicon.svg")
 
