@@ -124,21 +124,22 @@ def siffror_ringar(self):
 
 
 def projekt_lista(self):
-    """Startsidan (förslag P5 + P7): mörkblå sektion med filter och en numrerad projektlista; bilden visas vid hover."""
+    """Startsidan (förslag P5): mörkblå sektion med filter och stora bildkort; beskrivningen visas vid hover."""
     from generera import PIL
     pr = self.b["projekt"]
     typer = list(dict.fromkeys(p["typ"] for p in pr))
     chips = '<button type="button" data-typ="" aria-pressed="true">Alla</button>' + "".join(
         f'<button type="button" data-typ="{E(t)}" aria-pressed="false">{E(t)}</button>' for t in typer)
-    rader = ""
+    kort = ""
     for i, p in enumerate(pr, 1):
         bild = self.bilder.ta(p.get("tagg"))
-        rader += (f'<li data-typ="{E(p["typ"])}"><a href="projekt.html"><em>{i:02d}</em><span class="pf-namn"><b>{E(p["namn"])}</b><small>{E(p["text"])}</small></span>'
-                  f'<span class="pf-meta">{E(p["typ"])} · {E(p["ort"])}</span><span class="pf-bild">{self.bilder.img(bild, "(min-width:900px) 300px, 120px")}</span>{PIL}</a></li>')
+        kort += (f'<li data-typ="{E(p["typ"])}"><a href="projekt.html">{self.bilder.img(bild, "(min-width:1000px) 33vw, (min-width:640px) 50vw, 100vw")}'
+                 f'<span class="pf-text"><small>{i:02d} · {E(p["typ"])} · {E(p["ort"])}</small><b>{E(p["namn"])}</b><em>{E(p["text"])}</em></span>'
+                 f'<i class="pf-pil">{PIL}</i></a></li>')
     return f'''<section class="sek pf" data-pf aria-labelledby="pf-h"><div class="wrap">
   <div class="pf-huvud"><div><span class="etikett">Projekt</span><h2 id="pf-h">Några av våra projekt</h2></div>{self.textlank("Se alla projekt", "projekt.html")}</div>
   <div class="pf-chips" role="group" aria-label="Filtrera projekt">{chips}</div>
-  <ol class="pf-lista">{rader}</ol>
+  <ul class="pf-lista">{kort}</ul>
 </div></section>'''
 
 
@@ -286,26 +287,26 @@ body[data-herotext="nere"] .hero .hero-txt .ingress { font-size: clamp(17px, 1.4
 .pf-chips button { font: 600 14px var(--font-t); color: #fff; background: transparent; border: 1px solid rgba(255,255,255,.3); border-radius: 999px; padding: 9px 18px; cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
 .pf-chips button:hover { border-color: #fff; }
 .pf-chips button[aria-pressed="true"] { background: var(--c-a); color: var(--c-p); border-color: var(--c-a); }
-.pf-lista { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgba(255,255,255,.16); }
+.pf-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+@media (min-width: 640px) { .pf-lista { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .pf-lista { grid-template-columns: repeat(3, 1fr); } .pf-lista li:first-child { grid-column: span 2; grid-row: span 2; } }
 .pf-lista li[hidden] { display: none; }
-.pf-lista a { position: relative; display: grid; grid-template-columns: 48px 1fr auto 24px; gap: 20px; align-items: center; padding: 26px 6px; border-bottom: 1px solid rgba(255,255,255,.16); color: inherit; text-decoration: none; }
-.pf-lista em { font-style: normal; font-weight: 700; color: var(--c-a); font-size: 14px; }
-.pf-namn { display: grid; gap: 4px; }
-.pf-namn b { font-size: clamp(22px, 2.4vw, 34px); letter-spacing: -.02em; line-height: 1.15; transition: color .2s; }
-.pf-namn small { color: rgba(255,255,255,.65); font-size: 15px; }
-.pf-meta { font-weight: 600; font-size: 14px; color: rgba(255,255,255,.7); }
-.pf-lista a > svg { width: 22px; height: 22px; color: var(--c-a); transition: transform .2s; }
-.pf-bild { position: absolute; right: 26%; top: 50%; width: 280px; height: 190px; border-radius: var(--r-img); overflow: hidden; opacity: 0; transform: translateY(-50%) scale(.92) rotate(-2deg); transition: opacity .3s, transform .3s; pointer-events: none; z-index: 2; box-shadow: 0 24px 50px rgba(0,0,0,.35); }
-.pf-bild img { width: 100%; height: 100%; object-fit: cover; }
-.pf-lista a:hover .pf-bild { opacity: 1; transform: translateY(-50%) scale(1) rotate(-2deg); }
-.pf-lista a:hover .pf-namn b { color: var(--c-a); }
-.pf-lista a:hover > svg { transform: translateX(4px); }
-@media (max-width: 900px) {
-  .pf-lista a { grid-template-columns: 96px 1fr 22px; gap: 14px; padding: 16px 0; }
-  .pf-lista em, .pf-meta { display: none; }
-  .pf-bild { position: static; width: 96px; height: 72px; opacity: 1; transform: none; box-shadow: none; grid-row: 1; grid-column: 1; }
-  .pf-lista a:hover .pf-bild { transform: none; }
-  .pf-namn { grid-column: 2; } .pf-namn b { font-size: 19px; } .pf-namn small { font-size: 13px; }
+.pf-lista a { position: relative; display: block; height: 100%; min-height: 300px; border-radius: var(--r-card); overflow: hidden; color: #fff; text-decoration: none; isolation: isolate; }
+.pf-lista img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform .7s ease; }
+.pf-lista a::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgba(6,18,32,.92) 0%, rgba(6,18,32,.35) 50%, rgba(6,18,32,0) 75%); transition: background .3s; }
+.pf-text { position: absolute; left: 0; right: 0; bottom: 0; display: grid; gap: 6px; padding: 24px 84px 24px 24px; }
+.pf-text small { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--c-a); }
+.pf-text b { font-size: clamp(20px, 1.7vw, 26px); line-height: 1.15; }
+.pf-lista li:first-child .pf-text b { font-size: clamp(26px, 2.6vw, 38px); }
+.pf-text em { font-style: normal; font-size: 15px; opacity: .88; }
+.pf-pil { position: absolute; right: 24px; bottom: 24px; width: 46px; height: 46px; border-radius: 50%; background: var(--c-a); color: var(--c-p); display: grid; place-items: center; transition: transform .2s; }
+.pf-pil svg { width: 18px; height: 18px; }
+@media (hover: hover) {
+  .pf-text em { max-height: 0; opacity: 0; overflow: hidden; transition: max-height .4s ease, opacity .3s ease; }
+  .pf-lista a:hover em { max-height: 5em; opacity: .88; }
+  .pf-lista a:hover img { transform: scale(1.05); }
+  .pf-lista a:hover::after { background: linear-gradient(0deg, rgba(6,18,32,.95) 0%, rgba(6,18,32,.55) 60%, rgba(6,18,32,.1) 100%); }
+  .pf-lista a:hover .pf-pil { transform: translateX(4px); }
 }
 
 /* Startsidan: Våra bolag (två separata kort) och tjänsterna som ikonrutor */
