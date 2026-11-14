@@ -15,6 +15,9 @@ import shutil
 import subprocess
 import sys
 
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import seo  # noqa: E402
+
 ROT = pathlib.Path(__file__).resolve().parent.parent
 OHAN = pathlib.Path(sys.argv[1] if len(sys.argv) > 1 else ROT.parent / "Ohan-entreprenad").resolve()
 DOCS = ROT / "docs"
@@ -34,8 +37,9 @@ START_OPTIONS = ["Så snart som möjligt", "Inom 1–3 månader", "Inom 3–6 m�
 OLD_SERVICES = {"totalrenovering": 0, "koksrenovering": 0, "badrumsrenovering": 0, "malning-och-ytskikt": 1,
                 "golv-kakel-klinker": 1, "snickeri-och-inredning": 2, "dorrar-fonster-tak": 2, "om-tillbyggnad-utomhus": 2,
                 "betong-rivning-haltagning": 3, "vvs-och-ledningsarbeten": 3}
+# Tjänsterna har egna sidor (tjanster/<tjänst>.html, se scripts/seo.py) med samma adresser som haningebyggteam.se.
 REDIRECTS = {"tjanster/index.html": "../verksamhet.html", "kunder.html": "bolag.html", "foretag.html": "bolag.html",
-             "kontakt.html": "om-oss.html#kontakt", **{f"tjanster/{s}.html": f"../verksamhet.html#omr-{n}" for s, n in OLD_SERVICES.items()}}
+             "kontakt.html": "om-oss.html#kontakt"}
 
 E = html.escape
 
@@ -470,7 +474,7 @@ def to_webp(out):
         Image.open(f).save(f.with_suffix(".webp"), quality=74, method=6)
     for f in out.rglob("*.html"):
         doc = f.read_text(encoding="utf-8")
-        doc = re.sub(r'(?<!content=")((?:\.\./)*img/[\w-]+)\.jpg', r"\1.webp", doc)
+        doc = re.sub(r'(?<=["\s,])((?:\.\./)*img/[\w-]+)\.jpg', r"\1.webp", doc)
         f.write_text(doc, encoding="utf-8")
 
 
@@ -501,9 +505,8 @@ def search_index(out, brief):
         besk = re.search(r'<meta name="description" content="([^"]*)"', doc)
         rader.append({"k": "Sida", "t": "Startsidan" if f.name == "index.html" else titel, "u": f.name,
                       "x": html.unescape(besk.group(1)) if besk else ""})
-    for t in brief["tjanster"]:
-        if "omr-" in t["href"]:
-            rader.append({"k": "Tjänst", "t": t["titel"], "u": t["href"], "x": t.get("text", "")})
+    for t in json.loads((ROT / "koncern" / "tjanster.json").read_text(encoding="utf-8")):
+        rader.append({"k": "Tjänst", "t": t["title"], "u": f'tjanster/{t["slug"]}.html', "x": t["lead"] + " " + t["short"]})
     for i, a in enumerate(brief["affarsomraden"]):
         rader.append({"k": "Tjänsteområde", "t": a["titel"], "u": f"verksamhet.html#omr-{i}", "x": a["text"]})
     for p in brief["projekt"]:
@@ -527,6 +530,7 @@ def redirects(out):
 
 def meta(out):
     pages = [p.name for p in sorted(out.glob("*.html")) if p.name not in REDIRECTS and p.name != "404.html"]
+    pages += [f"tjanster/{p.name}" for p in sorted((out / "tjanster").glob("*.html")) if f"tjanster/{p.name}" not in REDIRECTS]
     urls = "".join(f"<url><loc>{SITE_URL}{'' if p == 'index.html' else p}</loc></url>" for p in pages)
     (out / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>\n', encoding="utf-8")
     (out / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}sitemap.xml\n", encoding="utf-8")
@@ -543,11 +547,17 @@ def main():
     paket = json.loads((ROT / "koncern" / "paket.json").read_text(encoding="utf-8"))
     generera.Sajt(brief, paket, DOCS).bygg()
     postprocess(DOCS)
+    tjanster, faqs = seo.build_service_pages(DOCS, brief, ROT)
+    seo.link_services(DOCS, tjanster)
     redirects(DOCS)
+    seo.page_404(DOCS, SITE_URL)
     meta(DOCS)
     search_index(DOCS, brief)
+    seo.seo_pass(DOCS, ROT, brief, SITE_URL, faqs)
     optimize_css(DOCS)
     to_webp(DOCS)
+    seo.images(DOCS, ROT)
+    seo.inline_css_and_fonts(DOCS, ROT)
     print(f"Byggde {brief['namn']} -> {DOCS.relative_to(ROT)}/")
     # Redesignförslagen (koncern/forslag/paket-<n>.json) byggs till docs/forslag/<n>/.
     forslag = sorted((ROT / "koncern" / "forslag").glob("paket-*.json"))

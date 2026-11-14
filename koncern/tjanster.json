@@ -1,0 +1,169 @@
+[
+ {
+  "slug": "totalrenovering",
+  "title": "Totalrenovering",
+  "lead": "Kompletta totalrenoveringar från idé till färdigt resultat.",
+  "short": "Bostäder, villor och fastigheter – vi samordnar hela renoveringen.",
+  "body": [
+   "Vi hjälper dig med totalrenovering av bostäder, villor och andra fastigheter i hela projektets omfattning. Från rivning och grundarbete till målning, golvläggning, snickeri och färdiga ytskikt – vi samordnar arbetet för en smidig renoveringsprocess och ett resultat som håller över tid.",
+   "Du har en kontaktperson genom hela projektet och en tydlig tidsplan innan vi börjar."
+  ],
+  "items": [
+   "Rivning och grundarbete",
+   "Ny planlösning och innerväggar",
+   "Kök och badrum",
+   "Golv, kakel och klinker",
+   "Målning och ytskikt",
+   "Snickeri och slutfinish"
+  ]
+ },
+ {
+  "slug": "koksrenovering",
+  "title": "Köksrenovering",
+  "lead": "Ge köket ett nytt liv med en genomtänkt köksrenovering.",
+  "short": "Rivning, montering av kök och inredning, golv och ytskikt.",
+  "body": [
+   "Vi erbjuder kompletta köksrenoveringar där vi hjälper till med rivning, montering av kök och inredning samt målning, golv och andra ytskikt. Målet är att skapa ett funktionellt, modernt och hållbart kök som passar både bostaden och dina behov."
+  ],
+  "items": [
+   "Rivning av befintligt kök",
+   "Montering av stommar, luckor och bänkskivor",
+   "Vatten och avlopp till disk och vitvaror",
+   "Kakel och stänkskydd",
+   "Golv, målning och lister"
+  ]
+ },
+ {
+  "slug": "badrumsrenovering",
+  "title": "Badrumsrenovering",
+  "lead": "Professionell badrumsrenovering med fokus på kvalitet och hållbarhet.",
+  "short": "Från rivning och tätskikt till kakel, klinker och montering.",
+  "body": [
+   "Vi utför kompletta badrumsrenoveringar med allt från rivning och förberedande arbeten till tätskikt, kakel, klinker och montering. Oavsett om du vill renovera ett mindre badrum eller skapa ett helt nytt modernt badrum hjälper vi dig genom hela projektet."
+  ],
+  "items": [
+   "Rivning och förberedande arbeten",
+   "Tätskikt",
+   "Kakel och klinker",
+   "Golvbrunn och rördragning",
+   "Montering av porslin, dusch och badrumsmöbler"
+  ]
+ },
+ {
+  "slug": "malning-och-ytskikt",
+  "title": "Målning & ytskikt",
+  "lead": "Jämna, hållbara ytor och ett fräscht uttryck i hela bostaden.",
+  "short": "Målning, spackling, gips och andra ytskikt.",
+  "body": [
+   "Vi utför professionell målning, spackling, gipsarbeten och andra ytskiktsarbeten för både mindre och större renoveringar. Med noggrant underarbete och rätt material skapar vi jämna och hållbara ytor.",
+   "En ny färg eller nya ytskikt kan ge hela bostaden ett fräscht och modernt uttryck."
+  ],
+  "items": [
+   "Målning av väggar och tak",
+   "Spackling och slipning",
+   "Gipsarbeten",
+   "Tapetsering",
+   "Snickerimålning"
+  ]
+ },
+ {
+  "slug": "golv-kakel-klinker",
+  "title": "Golv, kakel & klinker",
+  "lead": "Golv och plattsättning med noggranna förberedelser.",
+  "short": "Parkett, laminat, vinyl samt kakel och klinker.",
+  "body": [
+   "Vi erbjuder professionell golvläggning samt kakel- och klinkerarbeten för bostäder och andra lokaler. Vi lägger bland annat parkett, laminat och vinyl samt sätter kakel och klinker i kök, badrum och andra utrymmen.",
+   "Noggranna förberedelser och ett professionellt utförande ger ett snyggt och hållbart resultat."
+  ],
+  "items": [
+   "Parkett och laminat",
+   "Vinylgolv",
+   "Kakel på vägg",
+   "Klinker på golv",
+   "Avjämning och underarbete"
+  ]
+ },
+ {
+  "slug": "snickeri-och-inredning",
+  "title": "Snickeri & inredning",
+  "lead": "Funktionella och stilrena snickeridetaljer.",
+  "short": "Köksmontering, specialanpassade lösningar och snickeridetaljer.",
+  "body": [
+   "Vi utför snickeriarbeten och monterar inredning för både små och stora renoveringsprojekt. Det kan handla om allt från köksmontering och dörrar till fönster, specialanpassade lösningar och andra snickeridetaljer.",
+   "Vi arbetar noggrant med detaljerna för att skapa funktionella och stilrena resultat."
+  ],
+  "items": [
+   "Köks- och inredningsmontering",
+   "Platsbyggd förvaring",
+   "Lister, foder och socklar",
+   "Innerväggar och regelverk",
+   "Specialanpassade lösningar"
+  ]
+ },
+ {
+  "slug": "dorrar-fonster-tak",
+  "title": "Dörrar, fönster & tak",
+  "lead": "Bättre utseende och funktion – anpassat efter fastigheten.",
+  "short": "Byte och montering av dörrar och fönster, innertak och undertak.",
+  "body": [
+   "Vi hjälper dig med byte och montering av dörrar och fönster samt arbeten med innertak och undertak. Genom att uppdatera dessa delar kan du förbättra både bostadens utseende och funktion.",
+   "Vi utför arbetet noggrant och anpassar lösningen efter fastighetens förutsättningar och dina önskemål."
+  ],
+  "items": [
+   "Byte av innerdörrar och ytterdörrar",
+   "Fönsterbyte och montering",
+   "Innertak och undertak",
+   "Karmar, foder och tätning"
+  ]
+ },
+ {
+  "slug": "om-tillbyggnad-utomhus",
+  "title": "Om-, tillbyggnad & utomhus",
+  "lead": "Utveckla både bostaden och utemiljön.",
+  "short": "Ombyggnationer, tillbyggnader, altaner, trädäck, staket och fasad.",
+  "body": [
+   "Vi hjälper dig att utveckla och förbättra både bostaden och utemiljön genom ombyggnationer, tillbyggnader och utvändiga snickeriarbeten. Vi utför bland annat altaner, trädäck, staket och fasadarbeten.",
+   "Varje projekt anpassas efter fastighetens förutsättningar och dina önskemål för ett funktionellt och hållbart resultat."
+  ],
+  "items": [
+   "Ombyggnad och ny planlösning",
+   "Tillbyggnader",
+   "Altaner och trädäck",
+   "Staket och plank",
+   "Fasadarbeten"
+  ]
+ },
+ {
+  "slug": "betong-rivning-haltagning",
+  "title": "Betong, rivning & håltagning",
+  "lead": "Rätt förutsättningar för resten av byggprojektet.",
+  "short": "Gjutning, bilning, håltagning samt rivning och återställning.",
+  "body": [
+   "Vi utför betongarbeten, gjutning, bilning, håltagning samt rivnings- och återställningsarbeten. Dessa arbeten är ofta viktiga delar av större renoveringar och ombyggnationer.",
+   "Med ett effektivt och noggrant utförande skapar vi rätt förutsättningar för det fortsatta byggprojektet."
+  ],
+  "items": [
+   "Betongarbeten och gjutning",
+   "Bilning",
+   "Håltagning",
+   "Rivning",
+   "Återställningsarbeten"
+  ]
+ },
+ {
+  "slug": "vvs-och-ledningsarbeten",
+  "title": "VVS & ledningsarbeten",
+  "lead": "Vatten och avlopp, samordnat med resten av projektet.",
+  "short": "Byte och anpassning av vatten- och avloppsledningar.",
+  "body": [
+   "Vi utför arbeten inom vatten och avlopp i samband med renoveringar, ombyggnationer och andra byggprojekt. Det kan bland annat innebära byte och anpassning av vatten- och avloppsledningar.",
+   "Vi hjälper till att skapa funktionella lösningar och samordnar arbetet med projektets övriga moment."
+  ],
+  "items": [
+   "Byte av vatten- och avloppsledningar",
+   "Anpassning vid ombyggnad",
+   "Rördragning i kök och badrum",
+   "Samordning med övriga moment"
+  ]
+ }
+]
