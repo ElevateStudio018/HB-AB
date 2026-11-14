@@ -152,6 +152,11 @@ EXTRA_CSS = """
 .panel { border-radius: var(--r-card); overflow: hidden; }
 .panel-bild .bild-fyll, .panel-bild img { border-radius: 0; }
 
+/* Bredare layout: menyn och herotexten går ut mot skärmkanterna, innehållet får max 1520 px */
+:root { --maxw: 1520px; --kant: clamp(20px, 4vw, 80px); }
+.head > .wrap { max-width: none; padding-inline: var(--kant); }
+body:not([data-herotext="standard"]) .hero .hero-txt { padding-left: var(--kant); padding-right: var(--kant); }
+
 /* Ingen topprad: heron fyller hela skärmen; större rubrik */
 :root { --topp-h: 0px !important; }
 .topprad { display: none !important; }
@@ -179,6 +184,16 @@ body[data-herotext="nere"] .hero .hero-txt .ingress { font-size: clamp(17px, 1.4
 .tk-text i svg { width: 16px; height: 16px; transition: transform .2s; }
 .tk-kort:hover .tk-text i svg { transform: translateX(4px); }
 @media (max-width: 639px) { .tk-kort { aspect-ratio: 4 / 3.4; } }
+/* Hover: kortet växer lite och beskrivningen glider fram */
+.tk-grid li { transition: transform .35s ease; }
+.tk-kort { transition: box-shadow .35s ease; }
+@media (hover: hover) {
+  .tk-text span { max-height: 0; opacity: 0; overflow: hidden; transform: translateY(8px); transition: max-height .45s ease, opacity .35s ease, transform .35s ease; }
+  .tk-grid li:hover { transform: scale(1.04); z-index: 2; position: relative; }
+  .tk-grid li:hover .tk-kort { box-shadow: 0 26px 60px rgba(10,31,54,.32); }
+  .tk-grid li:hover .tk-text span { max-height: 9em; opacity: .92; transform: none; }
+  .tk-grid li:hover .tk-kort::after { background: linear-gradient(0deg, rgba(10,31,54,.95) 0%, rgba(10,31,54,.7) 55%, rgba(10,31,54,.2) 100%); }
+}
 
 /* Startsidan: tjänster bredvid Våra bolag */
 .vb-grid { display: grid; gap: 48px; }
