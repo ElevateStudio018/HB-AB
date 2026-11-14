@@ -64,7 +64,8 @@
    "Gipsarbeten",
    "Tapetsering",
    "Snickerimålning"
-  ]
+  ],
+  "h1": "Målning och ytskikt"
  },
  {
   "slug": "golv-kakel-klinker",
@@ -98,7 +99,8 @@
    "Lister, foder och socklar",
    "Innerväggar och regelverk",
    "Specialanpassade lösningar"
-  ]
+  ],
+  "h1": "Snickare – snickeri och inredning"
  },
  {
   "slug": "dorrar-fonster-tak",
@@ -131,7 +133,9 @@
    "Altaner och trädäck",
    "Staket och plank",
    "Fasadarbeten"
-  ]
+  ],
+  "h1": "Tillbyggnad, altan och utomhusarbeten",
+  "seo_titel": "Tillbyggnad och altan i Haninge | Haninge Byggteam"
  },
  {
   "slug": "betong-rivning-haltagning",

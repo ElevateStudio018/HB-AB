@@ -99,7 +99,7 @@ def tjanst_main(s, brief, alla, pre):
     main = f'''
 <section class="sidhero" aria-labelledby="h1"><div class="bild-fyll"><img src="{pre}img/{bild}.jpg" srcset="{pre}img/{bild}-s.jpg 700w, {pre}img/{bild}.jpg 1600w" sizes="100vw" alt="{E(s["title"])}" fetchpriority=high decoding="async"></div>
   <div class="wrap"><nav class="brodsmula" aria-label="Brödsmulor"><a href="{pre}index.html">Start</a> / <a href="{pre}verksamhet.html">Tjänster</a> / <span aria-current="page">{E(s["title"])}</span></nav>
-  <h1 id="h1">{E(s["title"])} i Haninge och Stockholm</h1><p class="ingress">{E(s["lead"])}</p></div></section>
+  <h1 id="h1">{E(s.get("h1", s["title"]))} i Haninge och Stockholm</h1><p class="ingress">{E(s["lead"])}</p></div></section>
 <section class="sek ts"><div class="wrap ts-grid">
   <div class="ts-text"><span class="etikett">{E(omr["titel"])}</span><h2>{E(s["short"])}</h2>{body}
     <p>Vi utför {E(t)} åt privatpersoner, företag och bostadsrättsföreningar i {", ".join(ORTER[:-1])} och {ORTER[-1]}. Du får en kontaktperson, en tydlig tidsplan och en fast offert innan arbetet startar.</p>
@@ -161,7 +161,7 @@ def build_service_pages(out, brief, root):
         main, faq = tjanst_main(s, brief, tjanster, "../")
         doc = prefix_rel(head, "../") + main + prefix_rel(foot, "../")
         (out / "tjanster" / f'{s["slug"]}.html').write_text(doc, encoding="utf-8")
-        t = f'{s["title"]} i Haninge & Stockholm | Haninge Byggteam'
+        t = s.get("seo_titel") or f'{s["title"]} i Haninge & Stockholm | Haninge Byggteam'
         if len(t) > 60:
             t = f'{s["title"]} i Haninge | Haninge Byggteam'
         if len(t) > 60:

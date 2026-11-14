@@ -66,3 +66,17 @@ Skickar via [FormSubmit](https://formsubmit.co). Under förhandsvisningen går f
 koncernband, ramad, industriell, skandinavisk). Paketen ligger i `koncern/forslag/paket-<n>.json` och är registrerade i
 koncern-registret. Översikt: `docs/forslag/index.html`. När ett förslag är valt: kopiera dess paket till
 `koncern/paket.json` och bygg om.
+
+## SEO och tester
+
+Byggsteget `scripts/seo.py` gör landningssidor för alla tio tjänster (`tjanster/<tjänst>.html`), sätter titlar,
+beskrivningar, canonical, Open Graph och strukturerad data, rättar rubrikordning och länktexter, gör bilder i flera
+storlekar och bygger in rensad CSS och egna typsnitt i varje sida (`scripts/rensa-css.mjs`, kräver `npm install`).
+
+- `node scripts/test/djupanalys.mjs <adress>` – samma kontroller som Elevate Studios djupanalys
+- `scripts/test/lighthouse.sh <adress> <namn>` – Googles Lighthouse (mobil)
+- Jämförelse mot nuvarande haningebyggteam.se: `docs/forslag/seo-rapport.html`
+
+Resultat: djupanalysen 100 i SEO, tillgänglighet, bästa praxis och prestanda på alla 18 sidor; Lighthouse 100/100/100/100
+på alla tio testade sidor. Säkerhetsrubriker kräver Cloudflare Pages eller Netlify (`docs/_headers`); mejlposter
+(MX, SPF, DMARC) saknas på domänen och rättas hos domänleverantören.
