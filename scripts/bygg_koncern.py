@@ -361,6 +361,24 @@ body[data-herotext="nere"] .hero .hero-txt .ingress { font-size: clamp(17px, 1.4
 .vb-text i { font-style: normal; font-weight: 600; font-size: 14px; color: var(--c-p); display: inline-flex; align-items: center; gap: 6px; }
 .vb-text i svg { width: 16px; height: 16px; }
 
+/* Sök */
+.sok-fonster { position: fixed; inset: 0; z-index: 1000; background: rgba(6,18,32,.6); backdrop-filter: blur(4px); display: flex; justify-content: center; align-items: flex-start; padding: clamp(16px, 10vh, 120px) 16px 16px; }
+.sok-fonster[hidden] { display: none; }
+html.sok-oppen { overflow: hidden; }
+.sok-ruta { width: min(680px, 100%); max-height: 100%; display: flex; flex-direction: column; background: #fff; color: var(--c-ink); border-radius: var(--r-card); box-shadow: 0 30px 80px rgba(0,0,0,.35); overflow: hidden; }
+.sok-falt { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--c-line); }
+.sok-falt svg { width: 22px; height: 22px; color: var(--c-p); flex: none; }
+.sok-falt input { flex: 1; min-width: 0; border: 0; outline: 0; font: 500 18px var(--font-t); color: inherit; background: transparent; }
+.sok-stang { font: 600 12px var(--font-t); color: var(--c-mut); background: var(--c-yta); border: 0; border-radius: 6px; padding: 6px 9px; cursor: pointer; }
+.sok-res { list-style: none; margin: 0; padding: 8px; overflow-y: auto; }
+.sok-res a { display: grid; gap: 2px; padding: 12px 14px; border-radius: 10px; color: inherit; text-decoration: none; }
+.sok-res a[aria-selected="true"], .sok-res a:hover { background: var(--c-yta); }
+.sok-res small { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--c-p); }
+.sok-res b { font-size: 16px; }
+.sok-res span { font-size: 14px; color: var(--c-mut); }
+.sok-tom { margin: 0; padding: 14px 22px 20px; color: var(--c-mut); font-size: 14px; }
+.sok-tom:empty { display: none; }
+
 /* Loggan */
 .logga-bild { display: block; height: 64px; width: auto; }
 @media (max-width: 720px) { .logga-bild { height: 46px; } }
@@ -403,7 +421,7 @@ def postprocess(out):
         doc = doc.replace('<p class="fot-namn">Haninge Byggteam</p>',
                           '<p class="fot-namn"><img class="fot-logga" src="assets/logo.svg" alt="Haninge Byggteam AB" width="150" height="131"></p>')
         doc = doc.replace("family=Poppins:wght@400;500;600;700;800", "family=Poppins:wght@400;500;600;700")
-        if ("hb-anim" in doc or "data-pf" in doc) and "hb.js" not in doc:
+        if "hb.js" not in doc:
             doc = doc.replace("</body>", '<script src="assets/hb.js" defer></script>\n</body>')
         if 'id="qform"' in doc and "offert.js" not in doc:
             doc = doc.replace("</body>", '<script src="assets/offert.js" defer></script>\n</body>')
@@ -471,6 +489,33 @@ def optimize_css(out):
     shutil.rmtree(tmp)
 
 
+def search_index(out, brief):
+    """assets/sok.json för sökfunktionen: sidorna, tjänsterna, projekten och vanliga frågorna."""
+    rader = []
+    for f in sorted(out.glob("*.html")):
+        if f.name in REDIRECTS or f.name == "404.html":
+            continue
+        doc = f.read_text(encoding="utf-8")
+        titel = re.search(r"<title>(.*?)</title>", doc, re.S)
+        titel = html.unescape(titel.group(1)).split(" | ")[0].split(" – ")[0].strip() if titel else f.stem
+        besk = re.search(r'<meta name="description" content="([^"]*)"', doc)
+        rader.append({"k": "Sida", "t": "Startsidan" if f.name == "index.html" else titel, "u": f.name,
+                      "x": html.unescape(besk.group(1)) if besk else ""})
+    for t in brief["tjanster"]:
+        if "omr-" in t["href"]:
+            rader.append({"k": "Tjänst", "t": t["titel"], "u": t["href"], "x": t.get("text", "")})
+    for i, a in enumerate(brief["affarsomraden"]):
+        rader.append({"k": "Tjänsteområde", "t": a["titel"], "u": f"verksamhet.html#omr-{i}", "x": a["text"]})
+    for p in brief["projekt"]:
+        rader.append({"k": f'Projekt · {p["ort"]}', "t": p["namn"], "u": "projekt.html", "x": f'{p["typ"]}. {p["text"]}'})
+    for q, a in brief.get("faq", []):
+        rader.append({"k": "Vanlig fråga", "t": q, "u": "faq.html", "x": a})
+    for i, x in enumerate(brief.get("bolag", [])):
+        rader.append({"k": "Bolag", "t": x["namn"], "u": RIV_URL if i == 1 else "bolag.html", "x": x["text"]})
+    rader.append({"k": "Kontakt", "t": "Begär offert", "u": "om-oss.html#kontakt", "x": "Kostnadsfritt hembesök och fast offert. Offertformulär, telefon 072-002 22 00, info@haningebyggteam.se."})
+    (out / "assets" / "sok.json").write_text(json.dumps(rader, ensure_ascii=False), encoding="utf-8")
+
+
 def redirects(out):
     for old, new in REDIRECTS.items():
         p = out / old
@@ -500,6 +545,7 @@ def main():
     postprocess(DOCS)
     redirects(DOCS)
     meta(DOCS)
+    search_index(DOCS, brief)
     optimize_css(DOCS)
     to_webp(DOCS)
     print(f"Byggde {brief['namn']} -> {DOCS.relative_to(ROT)}/")
