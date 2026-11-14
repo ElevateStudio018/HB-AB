@@ -82,6 +82,7 @@ def load_generator():
     generera.Bilder.__init__ = init
     generera.varianter.REG[("vagval", "hb-duo")] = vagval_och_bolag
     generera.varianter.REG[("hb-tjanster", None)] = tjanster_kort
+    generera.varianter.REG[("vagval", "hb-t4")] = bolag_och_tjanster
     return generera
 
 
@@ -98,6 +99,26 @@ def tjanster_kort(self):
     <p>Från badrum och kök till totalrenoveringar, tillbyggnader och grundarbeten – samordnat av ett team med en kontaktperson.</p>
     {self.knapp("Alla tjänster", "verksamhet.html")}</div>
   <ul class="tk-grid">{kort}</ul>
+</div></section>'''
+
+
+def bolag_och_tjanster(self):
+    """Startsidan (förslag T4, omvänd): Våra bolag som två separata bildkort, sedan tjänsterna som ikonrutor."""
+    from generera import ikon, PIL
+    b = self.b
+    bolag = ""
+    for i, x in enumerate(self.bolagslista()):
+        bild = self.bilder.ta(x.get("tagg"))
+        bolag += (f'<a class="t4-bolag" href="bolag.html#bolag-{i}">{self.bilder.img(bild, "(min-width:900px) 50vw, 100vw")}'
+                  f'<span class="t4-bt"><small>{E(x.get("segment", ""))}</small><b>{E(x["namn"])}</b><span>{E(x.get("rubrik", ""))}</span></span>'
+                  f'<i class="t4-pil">{PIL}</i></a>')
+    rutor = "".join(f'<li><a href="{t["href"]}">{ikon(t["ikon"])}<span>{E(t["titel"])}</span>{PIL}</a></li>'
+                    for t in b["tjanster"] if "omr-" in t["href"])
+    return f'''<section class="sek t4" aria-labelledby="t4-h"><div class="wrap">
+  <div class="t4-huvud"><span class="etikett">Koncernen</span><h2 id="t4-h">Våra bolag</h2></div>
+  <div class="t4-bolagen">{bolag}</div>
+  <div class="t4-huvud t4-h2"><div><span class="etikett">Tjänster</span><h2>Vad kan vi hjälpa dig med?</h2></div>{self.textlank("Alla tjänster", "verksamhet.html")}</div>
+  <ul class="t4-rutor">{rutor}</ul>
 </div></section>'''
 
 
@@ -194,6 +215,33 @@ body[data-herotext="nere"] .hero .hero-txt .ingress { font-size: clamp(17px, 1.4
   .tk-grid li:hover .tk-text span { max-height: 9em; opacity: .92; transform: none; }
   .tk-grid li:hover .tk-kort::after { background: linear-gradient(0deg, rgba(10,31,54,.95) 0%, rgba(10,31,54,.7) 55%, rgba(10,31,54,.2) 100%); }
 }
+
+/* Startsidan: Våra bolag (två separata kort) och tjänsterna som ikonrutor */
+.t4 h2 { margin: 10px 0 0; }
+.t4-huvud { margin-bottom: 24px; }
+.t4-h2 { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-top: clamp(48px, 6vw, 80px); }
+.t4-bolagen { display: grid; gap: 24px; }
+@media (min-width: 900px) { .t4-bolagen { grid-template-columns: 1fr 1fr; gap: 28px; } }
+.t4-bolag { position: relative; display: flex; align-items: flex-end; min-height: clamp(260px, 26vw, 360px); padding: clamp(24px, 2.6vw, 36px); border-radius: var(--r-card); overflow: hidden; color: #fff; text-decoration: none; isolation: isolate; }
+.t4-bolag img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform .7s ease; }
+.t4-bolag::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgba(10,31,54,.92) 0%, rgba(10,31,54,.45) 50%, rgba(10,31,54,.05) 100%); }
+.t4-bolag:hover img { transform: scale(1.05); }
+.t4-bt { display: grid; gap: 6px; padding-right: 64px; }
+.t4-bt small { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--c-a); }
+.t4-bt b { font-size: clamp(24px, 2.2vw, 32px); line-height: 1.1; }
+.t4-bt span { opacity: .85; }
+.t4-pil { position: absolute; right: clamp(24px, 2.6vw, 36px); bottom: clamp(24px, 2.6vw, 36px); width: 50px; height: 50px; border-radius: 50%; background: var(--c-a); color: var(--c-p); display: grid; place-items: center; transition: transform .2s; }
+.t4-pil svg { width: 20px; height: 20px; }
+.t4-bolag:hover .t4-pil { transform: translateX(4px); }
+.t4-rutor { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 760px) { .t4-rutor { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1100px) { .t4-rutor { grid-template-columns: repeat(5, 1fr); } }
+.t4-rutor a { display: flex; flex-direction: column; gap: 14px; min-height: 140px; padding: 22px; background: var(--c-yta); border-radius: var(--r-card); color: inherit; text-decoration: none; font-weight: 600; transition: background .2s, color .2s; }
+.t4-rutor a > svg:first-child { width: 30px; height: 30px; color: var(--c-p); }
+.t4-rutor a > svg:last-child { margin-top: auto; width: 18px; height: 18px; color: var(--c-p); transition: transform .2s; }
+.t4-rutor a:hover { background: var(--c-p); color: #fff; }
+.t4-rutor a:hover svg { color: var(--c-a) !important; }
+.t4-rutor a:hover > svg:last-child { transform: translateX(4px); }
 
 /* Startsidan: tjänster bredvid Våra bolag */
 .vb-grid { display: grid; gap: 48px; }
